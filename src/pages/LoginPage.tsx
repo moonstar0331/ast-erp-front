@@ -1,5 +1,6 @@
 import { login } from '@/api/auth';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 type LoginForm = {
@@ -9,6 +10,7 @@ type LoginForm = {
 };
 
 export default function loginPage() {
+  const navigate = useNavigate();
   const [form, setForm] = useState<LoginForm>({
     email: '',
     password: '',
@@ -24,12 +26,10 @@ export default function loginPage() {
     try {
       setLoading(true);
 
-      // TODO: 여기에 로그인 API 연결
-      // await loginApi(form.email, form.password, form.remember);
-      login(form.email, form.password);
+      await login(form.email, form.password);
+      navigate('/dashboard');
 
       console.log('login submit', form);
-      alert('로그인 시도 (콘솔 확인)');
     } finally {
       setLoading(false);
     }

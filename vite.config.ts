@@ -19,11 +19,11 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       proxy: {
-        '/apigateway': {
+        '/api': {
           target: env.VITE_DEV_FRONT_NGINX_HOST,
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(/^\/apigateway/, ''), //임시
+          rewrite: (path) => path.replace(/^\/api/, ''), //임시
           configure: (proxy, options) => {
             proxy.on('error', (err, req, res) => {
               console.log('proxy error', err);

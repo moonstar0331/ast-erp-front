@@ -1,0 +1,152 @@
+import React from 'react';
+
+const Calendar: React.FC = () => {
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  const dates = [
+    [28, 29, 30, 31, 1, 2, 3],
+    [4, 5, 6, 7, 8, 9, 10],
+    [11, 12, 13, 14, 15, 16, 17],
+    [18, 19, 20, 21, 22, 23, 24],
+    [25, 26, 27, 28, 29, 30, 31],
+    [1, 2, 3, 4, 5, 6, 7],
+  ];
+
+  return (
+    <div className="bg-white p-4 border rounded-lg">
+      <div className="flex justify-between items-center mb-2">
+        <h3 className="font-bold text-lg">Jan</h3>
+        <span className="text-gray-500 text-sm">11:42</span>
+      </div>
+      <div className="grid grid-cols-7 text-center text-sm">
+        {days.map((day) => (
+          <div key={day} className="font-semibold text-gray-600 py-1">
+            {day}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-7 text-center text-sm">
+        {dates.flat().map((date, i) => (
+          <div
+            key={i}
+            className={`py-1 ${
+              i === 16 ? 'bg-blue-500 text-white rounded-full' : ''
+            } ${
+              (i >= 0 && i <= 3) || (i >= 32) ? 'text-gray-300' : ''
+            }`}
+          >
+            {date}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const NotificationItem: React.FC<{ title: string; sender: string; time: string }> = ({ title, sender, time }) => (
+    <div className="flex justify-between items-center py-2 border-b">
+        <span className="text-sm text-gray-700 truncate pr-4">{title}</span>
+        <div className="flex items-center flex-shrink-0">
+            <span className="text-sm text-gray-500 w-24 truncate">{sender}</span>
+            <span className="text-sm text-gray-500 w-16 text-right">{time}</span>
+        </div>
+    </div>
+);
+
+export default function DashboardPage() {
+  const notifications = [
+    { title: '배포문서가 도착했습니다. - W03_디지털리얼리티연구소_주간업무보고', sender: '이동우 대표이사', time: '1 시간' },
+    { title: '배포문서가 도착했습니다. - W03_XR사업본부_주간업무보고', sender: '이동우 대표이사', time: '1 일' },
+    { title: '배포문서가 도착했습니다. - W03_DX사업본부_주간업무보고', sender: '이동우 대표이사', time: '1 일' },
+    { title: '감사합니다.', sender: '이해윤 팀장', time: '3 일' },
+    { title: '장/단기의 구글 원격연결 정책 활성화 했습니다.', sender: '백예찬 선임', time: '3 일'},
+    { title: '[업무요청] 디지털리얼리티연구소 + 이해윤 + 사우디아라비아 유지보수를 위한 구글원격 연결 재요청 [내용]', sender: '이해윤 팀장', time: '3 일'},
+    { title: '금일 심정환 책임이 올린 멤버까지 포함해서 다시 요청 드렸습니다.', sender: '이해윤 팀장', time: '3 일'},
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-100 font-sans">
+      {/* Header */}
+      <header className="bg-white border-b">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center gap-8">
+              <h1 className="text-xl font-bold text-gray-800">WORPL™ 2.0</h1>
+              <nav className="hidden md:flex items-center gap-6 text-sm text-gray-600">
+                {['게시판', '이메일', '일정관리', '업무관리', '전자결재', '웹디스크', '메모장', '명함관리'].map(item => (
+                  <a href="#" key={item} className="hover:text-gray-900">{item}</a>
+                ))}
+              </nav>
+            </div>
+            <div className="flex items-center gap-4">
+               <input type="text" placeholder="통합검색" className="hidden md:block w-40 h-8 px-2 border rounded-md text-sm" />
+               <div className="flex items-center gap-3 text-sm">
+                <span>☆</span>
+                <span> नोटिफिकेशन</span>
+                <span>🔔</span>
+                <span className="font-semibold">김문성</span>
+                <a href="#" className="text-gray-500">한국어</a>
+               </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto p-4">
+        {/* Banner */}
+        <div className="relative rounded-lg overflow-hidden mb-4 bg-white p-8 border">
+            <div className="relative z-10">
+                <p className="text-lg font-semibold text-gray-500">2026, 탄탄한 내실로 도약하라!</p>
+                <h2 className="text-7xl font-extrabold text-red-600 tracking-tight">Be Robust!</h2>
+            </div>
+            <img src="/robust-banner.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-auto object-contain object-right z-0" />
+        </div>
+
+        <div className="flex justify-between items-center mb-4">
+            <div className="flex gap-2">
+                {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
+                    <button key={item} className="px-4 py-2 text-sm bg-white border rounded-md hover:bg-gray-50">{item}</button>
+                ))}
+            </div>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="grid grid-cols-4 gap-2">
+                {Array(8).fill('단축키').map((item, i) => (
+                    <button key={i} className="py-2 text-sm bg-white border rounded-md hover:bg-gray-50">{item}</button>
+                ))}
+                {Array(7).fill('단축키').map((item, i) => (
+                    <button key={i} className="py-2 text-sm bg-white border rounded-md hover:bg-gray-50">{item}</button>
+                ))}
+                <button className="py-2 text-sm bg-blue-500 text-white border rounded-md hover:bg-blue-600">고객지원</button>
+            </div>
+            <div className="bg-white p-4 border rounded-lg">
+                <h3 className="font-bold mb-2">알림</h3>
+                {notifications.map((item, index) => (
+                    <NotificationItem key={index} {...item} />
+                ))}
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-4">
+            <Calendar />
+            <div className="bg-white p-4 border rounded-lg">
+                <p className="text-sm">08:48 출근 [연동]</p>
+            </div>
+            <div className="bg-white p-4 border rounded-lg space-y-2">
+                <p className="text-sm"><a href="#" className="hover:underline">전자신문 SKT, 개인정보 유출 1348억 과징금에...</a></p>
+                <p className="text-sm"><a href="#" className="hover:underline">전자신문 IMF "한국 성장률 1.8→1.9% 상향"......</a></p>
+            </div>
+            <div className="bg-white p-4 border rounded-lg">
+                <button className="text-sm bg-gray-200 px-3 py-1 rounded">태그설정</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}

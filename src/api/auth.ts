@@ -3,7 +3,7 @@ import apiClient from '@/utils/apiClient';
 //로그인
 export async function login(email: string, password: string) {
   const res = await apiClient.post(
-    `/apigateway/auth-service/api/login`,
+    `/api/auth-service/api/login`,
     {
       email,
       password,
@@ -13,9 +13,9 @@ export async function login(email: string, password: string) {
     },
   );
 
-  if (res.code !== 200) {
+  if (!res) {
     throw new Error(res.msg || '로그인에 실패했습니다.');
   }
 
-  return res.data;
+  return res;
 }
