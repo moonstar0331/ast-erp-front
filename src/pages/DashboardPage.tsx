@@ -64,7 +64,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans">
+    <div className="min-h-screen bg-gray-100 font-sans flex flex-col">
       {/* Header */}
       <header className="bg-white border-b">
         <div className="container mx-auto px-4">
@@ -81,7 +81,6 @@ export default function DashboardPage() {
                <input type="text" placeholder="통합검색" className="hidden md:block w-40 h-8 px-2 border rounded-md text-sm" />
                <div className="flex items-center gap-3 text-sm">
                 <span>☆</span>
-                <span> नोटिफिकेशन</span>
                 <span>🔔</span>
                 <span className="font-semibold">김문성</span>
                 <a href="#" className="text-gray-500">한국어</a>
@@ -92,33 +91,28 @@ export default function DashboardPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto p-4">
+      <main className="container mx-auto p-4 flex-grow flex flex-col gap-4">
         {/* Banner */}
-        <div className="relative rounded-lg overflow-hidden mb-4 bg-white p-8 border">
-            <div className="relative z-10">
-                <p className="text-lg font-semibold text-gray-500">2026, 탄탄한 내실로 도약하라!</p>
-                <h2 className="text-7xl font-extrabold text-red-600 tracking-tight">Be Robust!</h2>
-            </div>
-            <img src="/robust-banner.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-auto object-contain object-right z-0" />
-        </div>
-
-        <div className="flex justify-between items-center mb-4">
-            <div className="flex gap-2">
-                {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
-                    <button key={item} className="px-4 py-2 text-sm bg-white border rounded-md hover:bg-gray-50">{item}</button>
-                ))}
+        <div className="relative rounded-lg bg-white border h-80 overflow-hidden">
+            <img src="/image/main_2026.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-auto object-cover p-8" />
+            <div className="absolute bottom-4 right-4">
+                <div className="flex gap-2">
+                    {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
+                        <button key={item} className="px-4 py-2 text-sm bg-white/80 backdrop-blur-sm border border-white/20 rounded-md hover:bg-white text-gray-800 font-semibold">{item}</button>
+                    ))}
+                </div>
             </div>
         </div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="flex-grow flex flex-col lg:flex-row gap-4">
           {/* Left Column */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:w-2/3 flex flex-col gap-4">
             <div className="grid grid-cols-4 gap-2">
-                {Array(8).fill('단축키').map((item, i) => (
+                {Array(4).fill('단축키').map((item, i) => (
                     <button key={i} className="py-2 text-sm bg-white border rounded-md hover:bg-gray-50">{item}</button>
                 ))}
-                {Array(7).fill('단축키').map((item, i) => (
+                {Array(3).fill('단축키').map((item, i) => (
                     <button key={i} className="py-2 text-sm bg-white border rounded-md hover:bg-gray-50">{item}</button>
                 ))}
                 <button className="py-2 text-sm bg-blue-500 text-white border rounded-md hover:bg-blue-600">고객지원</button>
@@ -132,12 +126,12 @@ export default function DashboardPage() {
           </div>
 
           {/* Right Column */}
-          <div className="space-y-4">
+          <div className="lg:w-1/3 flex flex-col gap-4">
             <Calendar />
             <div className="bg-white p-4 border rounded-lg">
                 <p className="text-sm">08:48 출근 [연동]</p>
             </div>
-            <div className="bg-white p-4 border rounded-lg space-y-2">
+            <div className="bg-white p-4 border rounded-lg flex flex-col gap-2">
                 <p className="text-sm"><a href="#" className="hover:underline">전자신문 SKT, 개인정보 유출 1348억 과징금에...</a></p>
                 <p className="text-sm"><a href="#" className="hover:underline">전자신문 IMF "한국 성장률 1.8→1.9% 상향"......</a></p>
             </div>
