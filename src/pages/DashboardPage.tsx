@@ -88,7 +88,7 @@ export default function DashboardPage() {
             <div className="absolute bottom-4 right-4">
                 <div className="flex gap-2">
                     {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
-                        <button key={item} className="px-4 py-2 text-sm bg-white/80 backdrop-blur-sm border border-white/20 rounded-md hover:bg-white text-gray-800 font-semibold">{item}</button>
+                        <button key={item} className="px-4 py-2 text-sm bg-white/80 backdrop-blur-sm border border-black/20 rounded-md hover:bg-white text-gray-800 font-semibold">{item}</button>
                     ))}
                 </div>
             </div>
