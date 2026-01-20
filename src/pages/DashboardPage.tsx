@@ -42,16 +42,6 @@ const Calendar: React.FC = () => {
   );
 };
 
-const NotificationItem: React.FC<{ title: string; sender: string; time: string }> = ({ title, sender, time }) => (
-    <div className="flex justify-between items-center py-2 border-b">
-        <span className="text-sm text-gray-700 truncate pr-4">{title}</span>
-        <div className="flex items-center flex-shrink-0">
-            <span className="text-sm text-gray-500 w-24 truncate">{sender}</span>
-            <span className="text-sm text-gray-500 w-16 text-right">{time}</span>
-        </div>
-    </div>
-);
-
 export default function DashboardPage() {
   const notifications = [
     { title: '배포문서가 도착했습니다. - W03_디지털리얼리티연구소_주간업무보고', sender: '이동우 대표이사', time: '1 시간' },
@@ -70,8 +60,8 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-8">
-              <h1 className="text-xl font-bold text-gray-800">WORPL™ 2.0</h1>
-              <nav className="hidden md:flex items-center gap-6 text-sm text-gray-600">
+              <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" />
+              <nav className="hidden md:flex items-center gap-6 text-base font-semibold text-gray-600">
                 {['게시판', '이메일', '일정관리', '업무관리', '전자결재', '웹디스크', '메모장', '명함관리'].map(item => (
                   <a href="#" key={item} className="hover:text-gray-900">{item}</a>
                 ))}
@@ -94,7 +84,7 @@ export default function DashboardPage() {
       <main className="container mx-auto p-4 flex-grow flex flex-col gap-4">
         {/* Banner */}
         <div className="relative rounded-lg bg-white border h-80 overflow-hidden">
-            <img src="/image/main_2026.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-auto object-cover p-8" />
+            <img src="/image/main_2026.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-full p-8" />
             <div className="absolute bottom-4 right-4">
                 <div className="flex gap-2">
                     {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
@@ -120,7 +110,13 @@ export default function DashboardPage() {
             <div className="bg-white p-4 border rounded-lg">
                 <h3 className="font-bold mb-2">알림</h3>
                 {notifications.map((item, index) => (
-                    <NotificationItem key={index} {...item} />
+                    <div key={index} className="flex justify-between items-center py-2 border-b">
+                        <span className="text-sm text-gray-700 truncate pr-4">{item.title}</span>
+                        <div className="flex items-center flex-shrink-0">
+                            <span className="text-sm text-gray-500 w-24 truncate">{item.sender}</span>
+                            <span className="text-sm text-gray-500 w-16 text-right">{item.time}</span>
+                        </div>
+                    </div>
                 ))}
             </div>
           </div>
