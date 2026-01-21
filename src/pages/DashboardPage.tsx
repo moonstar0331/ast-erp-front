@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const Calendar: React.FC = () => {
   const days = ['일', '월', '화', '수', '목', '금', '토'];
@@ -44,8 +44,6 @@ const Calendar: React.FC = () => {
 };
 
 export default function DashboardPage() {
-    const navigate = useNavigate();
-
     const notifications = [
         { title: '배포문서가 도착했습니다. - W03_디지털리얼리티연구소_주간업무보고', sender: '이동우 대표이사', time: '1 시간' },
         { title: '배포문서가 도착했습니다. - W03_XR사업본부_주간업무보고', sender: '이동우 대표이사', time: '1 일' },
@@ -57,37 +55,10 @@ export default function DashboardPage() {
     ];
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans flex flex-col">
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-8">
-              <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" onClick={() => navigate('/dashboard')}/>
-              <nav className="hidden md:flex items-center gap-6 text-base font-semibold text-gray-600">
-                {['게시판', '이메일', '일정관리', '업무관리', '전자결재', '웹디스크', '메모장', '명함관리'].map(item => (
-                    <Link to={item === '전자결재' ? '/approval' : (item === '게시판' ? '/notice' : '#')} key={item} className={`hover:text-gray-900 ${item === '전자결재' ? 'text-blue-600' : ''}`}>{item}</Link>
-                ))}
-              </nav>
-            </div>
-            <div className="flex items-center gap-4">
-               <input type="text" placeholder="통합검색" className="hidden md:block w-40 h-8 px-2 border rounded-md text-sm" />
-               <div className="flex items-center gap-3 text-sm">
-                <span>☆</span>
-                <span>🔔</span>
-                <span className="font-semibold">김문성</span>
-                <a href="#" className="text-gray-500">한국어</a>
-               </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto p-4 flex-grow flex flex-col gap-4">
+    <>
         {/* Banner */}
-        <div className="relative rounded-lg bg-white border h-80 overflow-hidden">
-            <img src="/image/main_2026.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-full p-8" />
+        <div className="relative w-full rounded-lg bg-white border h-80 overflow-hidden">
+            <img src="/image/main_2026.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-full object-cover" />
             <div className="absolute bottom-4 right-4">
                 <div className="flex gap-2">
                     {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
@@ -139,7 +110,6 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+    </>
   );
 }
