@@ -58,11 +58,11 @@ export default function DashboardPage() {
     <>
         {/* Banner */}
         <div className="relative w-full rounded-lg bg-white border h-80 overflow-hidden">
-            <img src="/image/main_2026.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-full object-cover" />
+            <img src="/image/main_2026.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-full p-8" />
             <div className="absolute bottom-4 right-4">
                 <div className="flex gap-2">
                     {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
-                        <Link to={item === '전자결재' ? '/approval' : (item === '게시판' ? '/notice' : '#')} key={item} className={`hover:text-gray-900 ${item === '전자결재' ? 'text-blue-600' : ''}`}>{item}</Link>
+                        <Link to={item === '전자결재' ? '/approval' : (item === '게시판' ? '/notice' : '#')} key={item} className={`hover:text-gray-900 border p-1 rounded border-black/40`}>{item}</Link>
                     ))}
                 </div>
             </div>
