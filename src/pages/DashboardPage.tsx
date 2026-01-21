@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const Calendar: React.FC = () => {
   const days = ['일', '월', '화', '수', '목', '금', '토'];
@@ -44,15 +44,17 @@ const Calendar: React.FC = () => {
 };
 
 export default function DashboardPage() {
-  const notifications = [
-    { title: '배포문서가 도착했습니다. - W03_디지털리얼리티연구소_주간업무보고', sender: '이동우 대표이사', time: '1 시간' },
-    { title: '배포문서가 도착했습니다. - W03_XR사업본부_주간업무보고', sender: '이동우 대표이사', time: '1 일' },
-    { title: '배포문서가 도착했습니다. - W03_DX사업본부_주간업무보고', sender: '이동우 대표이사', time: '1 일' },
-    { title: '감사합니다.', sender: '이해윤 팀장', time: '3 일' },
-    { title: '장/단기의 구글 원격연결 정책 활성화 했습니다.', sender: '백예찬 선임', time: '3 일'},
-    { title: '[업무요청] 디지털리얼리티연구소 + 이해윤 + 사우디아라비아 유지보수를 위한 구글원격 연결 재요청 [내용]', sender: '이해윤 팀장', time: '3 일'},
-    { title: '금일 심정환 책임이 올린 멤버까지 포함해서 다시 요청 드렸습니다.', sender: '이해윤 팀장', time: '3 일'},
-  ];
+    const navigate = useNavigate();
+
+    const notifications = [
+        { title: '배포문서가 도착했습니다. - W03_디지털리얼리티연구소_주간업무보고', sender: '이동우 대표이사', time: '1 시간' },
+        { title: '배포문서가 도착했습니다. - W03_XR사업본부_주간업무보고', sender: '이동우 대표이사', time: '1 일' },
+        { title: '배포문서가 도착했습니다. - W03_DX사업본부_주간업무보고', sender: '이동우 대표이사', time: '1 일' },
+        { title: '감사합니다.', sender: '이해윤 팀장', time: '3 일' },
+        { title: '장/단기의 구글 원격연결 정책 활성화 했습니다.', sender: '백예찬 선임', time: '3 일'},
+        { title: '[업무요청] 디지털리얼리티연구소 + 이해윤 + 사우디아라비아 유지보수를 위한 구글원격 연결 재요청 [내용]', sender: '이해윤 팀장', time: '3 일'},
+        { title: '금일 심정환 책임이 올린 멤버까지 포함해서 다시 요청 드렸습니다.', sender: '이해윤 팀장', time: '3 일'},
+    ];
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans flex flex-col">
@@ -61,10 +63,10 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-8">
-              <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" />
+              <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" onClick={() => navigate('/dashboard')}/>
               <nav className="hidden md:flex items-center gap-6 text-base font-semibold text-gray-600">
                 {['게시판', '이메일', '일정관리', '업무관리', '전자결재', '웹디스크', '메모장', '명함관리'].map(item => (
-                  <Link to={item === '게시판' ? '/board' : '#'} key={item} className="hover:text-gray-900">{item}</Link>
+                  <Link to={item === '게시판' ? '/notice' : '#'} key={item} className="hover:text-gray-900">{item}</Link>
                 ))}
               </nav>
             </div>

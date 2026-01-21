@@ -1,24 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
-const BoardPage: React.FC = () => {
-  const posts = [
-    { id: 1, title: '2월 급여 지급 관련 통지', author: '석병택 교모', views: 136, date: '19시간', important: true },
-    { id: 2, title: '2026년 건강검진', author: '안태옥 수석', views: 147, date: '1일', important: false },
-    { id: 3, title: '2026년 설날 선물 관련 안내', author: '민들레 책임', views: 161, date: '4일', important: false },
-    { id: 4, title: '2025년 근로소득 연말정산', author: '안대륙 수석', views: 167, date: '6일', important: false },
-    { id: 5, title: '2026년도 연봉 인상 안내 및 연봉계약서 작성 방법', author: '민들레 책임', views: 164, date: '7일', important: false },
-    { id: 6, title: '육아 비과세 혜택 공지', author: '민들레 책임', views: 155, date: '7일', important: false },
-    { id: 7, title: '보직 변경 공지 (서윤정, 서지나)', author: '민들레 책임', views: 163, date: '2026-01-05', important: false },
-    { id: 8, title: '2026년도 조직 개편(임시 조직) 공지', author: '민들레 책임', views: 166, date: '2026-01-02', important: false },
-    { id: 9, title: '12월 식비, 교통비 확인하세요.', author: '민들레 책임', views: 157, date: '2026-01-02', important: false },
-    { id: 10, title: '2026 대표이사 신년사', author: '박예진', views: 163, date: '2026-01-02', important: false },
-    { id: 11, title: '2025년도 복지제도 안내 | 광고 본사 1층 카페마당 음료비용 지원', author: '민들레 책임', views: 164, date: '2026-01-02', important: false },
-    { id: 12, title: '2025년도 성과급 지급 관련 공지', author: '민들레 책임', views: 169, date: '2025-12-30', important: false },
-    { id: 13, title: '2026년 레벨업 명단 공지', author: '민들레 책임', views: 168, date: '2025-12-30', important: false },
-    { id: 14, title: '2026 신년맞이 떡국 나눔 행사 안내', author: '민들레 책임', views: 167, date: '2025-12-29', important: false },
-    { id: 15, title: '2026년 1월 당직', author: '김현승 수석', views: 160, date: '2025-12-29', important: false },
-  ];
+const NoticePage: React.FC = () => {
+    const navigate = useNavigate();
+
+    const posts = [
+        { id: 1, title: '2월 급여 지급 관련 통지', author: '석병택 교모', views: 136, date: '19시간', important: true },
+        { id: 2, title: '2026년 건강검진', author: '안태옥 수석', views: 147, date: '1일', important: false },
+        { id: 3, title: '2026년 설날 선물 관련 안내', author: '민들레 책임', views: 161, date: '4일', important: false },
+        { id: 4, title: '2025년 근로소득 연말정산', author: '안대륙 수석', views: 167, date: '6일', important: false },
+        { id: 5, title: '2026년도 연봉 인상 안내 및 연봉계약서 작성 방법', author: '민들레 책임', views: 164, date: '7일', important: false },
+        { id: 6, title: '육아 비과세 혜택 공지', author: '민들레 책임', views: 155, date: '7일', important: false },
+        { id: 7, title: '보직 변경 공지 (서윤정, 서지나)', author: '민들레 책임', views: 163, date: '2026-01-05', important: false },
+        { id: 8, title: '2026년도 조직 개편(임시 조직) 공지', author: '민들레 책임', views: 166, date: '2026-01-02', important: false },
+        { id: 9, title: '12월 식비, 교통비 확인하세요.', author: '민들레 책임', views: 157, date: '2026-01-02', important: false },
+        { id: 10, title: '2026 대표이사 신년사', author: '박예진', views: 163, date: '2026-01-02', important: false },
+        { id: 11, title: '2025년도 복지제도 안내 | 광고 본사 1층 카페마당 음료비용 지원', author: '민들레 책임', views: 164, date: '2026-01-02', important: false },
+        { id: 12, title: '2025년도 성과급 지급 관련 공지', author: '민들레 책임', views: 169, date: '2025-12-30', important: false },
+        { id: 13, title: '2026년 레벨업 명단 공지', author: '민들레 책임', views: 168, date: '2025-12-30', important: false },
+        { id: 14, title: '2026 신년맞이 떡국 나눔 행사 안내', author: '민들레 책임', views: 167, date: '2025-12-29', important: false },
+        { id: 15, title: '2026년 1월 당직', author: '김현승 수석', views: 160, date: '2025-12-29', important: false },
+    ];
 
   const sidebarLinks = [
     '공지사항', '업무 공유', 'AST 제도 및 규정', 'AST 경조사', 'AST 피플&컬쳐', 'AST 사내교육자료', 'AST 동호회/모임',
@@ -32,10 +34,10 @@ const BoardPage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-8">
-              <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" />
+              <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" onClick={() => navigate('/dashboard')} />
               <nav className="hidden md:flex items-center gap-6 text-base font-semibold text-gray-600">
                 {['게시판', '이메일', '일정관리', '업무관리', '전자결재', '웹디스크', '메모장', '명함관리'].map(item => (
-                  <Link to={item === '게시판' ? '/board' : '#'} key={item} className={`hover:text-gray-900 ${item === '게시판' ? 'text-blue-600' : ''}`}>{item}</Link>
+                  <Link to={item === '게시판' ? '/notice' : '#'} key={item} className={`hover:text-gray-900 ${item === '게시판' ? 'text-blue-600' : ''}`}>{item}</Link>
                 ))}
               </nav>
             </div>
@@ -138,4 +140,4 @@ const BoardPage: React.FC = () => {
   );
 };
 
-export default BoardPage;
+export default NoticePage;
