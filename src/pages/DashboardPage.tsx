@@ -66,7 +66,7 @@ export default function DashboardPage() {
               <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" onClick={() => navigate('/dashboard')}/>
               <nav className="hidden md:flex items-center gap-6 text-base font-semibold text-gray-600">
                 {['게시판', '이메일', '일정관리', '업무관리', '전자결재', '웹디스크', '메모장', '명함관리'].map(item => (
-                  <Link to={item === '게시판' ? '/notice' : '#'} key={item} className="hover:text-gray-900">{item}</Link>
+                    <Link to={item === '전자결재' ? '/approval' : (item === '게시판' ? '/notice' : '#')} key={item} className={`hover:text-gray-900 ${item === '전자결재' ? 'text-blue-600' : ''}`}>{item}</Link>
                 ))}
               </nav>
             </div>
@@ -91,7 +91,7 @@ export default function DashboardPage() {
             <div className="absolute bottom-4 right-4">
                 <div className="flex gap-2">
                     {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
-                        <Link to={item === '게시판' ? '/board' : '#'} key={item} className="px-4 py-2 text-sm bg-white/80 backdrop-blur-sm border border-black/20 rounded-md hover:bg-white text-gray-800 font-semibold">{item}</Link>
+                        <Link to={item === '전자결재' ? '/approval' : (item === '게시판' ? '/notice' : '#')} key={item} className={`hover:text-gray-900 ${item === '전자결재' ? 'text-blue-600' : ''}`}>{item}</Link>
                     ))}
                 </div>
             </div>

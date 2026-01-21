@@ -37,7 +37,7 @@ const NoticePage: React.FC = () => {
               <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" onClick={() => navigate('/dashboard')} />
               <nav className="hidden md:flex items-center gap-6 text-base font-semibold text-gray-600">
                 {['게시판', '이메일', '일정관리', '업무관리', '전자결재', '웹디스크', '메모장', '명함관리'].map(item => (
-                  <Link to={item === '게시판' ? '/notice' : '#'} key={item} className={`hover:text-gray-900 ${item === '게시판' ? 'text-blue-600' : ''}`}>{item}</Link>
+                    <Link to={item === '전자결재' ? '/approval' : (item === '게시판' ? '/notice' : '#')} key={item} className={`hover:text-gray-900 ${item === '전자결재' ? 'text-blue-600' : ''}`}>{item}</Link>
                 ))}
               </nav>
             </div>
