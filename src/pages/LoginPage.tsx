@@ -36,20 +36,20 @@ export default function loginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-[420px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.55)]">
+    <div className="min-h-screen bg-gray-100 font-sans flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-[420px] bg-white p-6 border rounded-lg shadow-md">
         {/* Header */}
-        <div className="px-6 pt-7 pb-5">
+        <div className="pb-5">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-gray-200 flex items-center justify-center">
               {/* 로고 자리 */}
-              <span className="text-white font-semibold">A</span>
+              <span className="text-gray-900 font-semibold">A</span>
             </div>
             <div>
-              <div className="text-white text-lg font-semibold leading-tight">
+              <div className="text-gray-900 text-lg font-semibold leading-tight">
                 Sign in
               </div>
-              <div className="text-white/60 text-sm leading-tight">
+              <div className="text-gray-600 text-sm leading-tight">
                 Welcome back. Please login to continue.
               </div>
             </div>
@@ -57,9 +57,9 @@ export default function loginPage() {
         </div>
 
         {/* Form */}
-        <form onSubmit={onSubmit} className="px-6 pb-7">
+        <form onSubmit={onSubmit} className="pb-1">
           <label className="block">
-            <span className="block text-sm font-medium text-white/80 mb-2">
+            <span className="block text-sm font-medium text-gray-700 mb-2">
               Email
             </span>
             <input
@@ -68,12 +68,12 @@ export default function loginPage() {
               type="email"
               placeholder="you@example.com"
               autoComplete="email"
-              className="w-full h-11 rounded-xl bg-black/20 border border-white/10 text-white placeholder:text-white/35 px-4 outline-none focus:border-white/25 focus:ring-2 focus:ring-white/10"
+              className="w-full h-11 rounded-xl bg-gray-50 border border-gray-300 text-gray-900 placeholder:text-gray-400 px-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             />
           </label>
 
           <label className="block mt-4">
-            <span className="block text-sm font-medium text-white/80 mb-2">
+            <span className="block text-sm font-medium text-gray-700 mb-2">
               Password
             </span>
             <div className="relative">
@@ -85,12 +85,12 @@ export default function loginPage() {
                 type={showPw ? 'text' : 'password'}
                 placeholder="••••••••"
                 autoComplete="current-password"
-                className="w-full h-11 rounded-xl bg-black/20 border border-white/10 text-white placeholder:text-white/35 px-4 pr-12 outline-none focus:border-white/25 focus:ring-2 focus:ring-white/10"
+                className="w-full h-11 rounded-xl bg-gray-50 border border-gray-300 text-gray-900 placeholder:text-gray-400 px-4 pr-12 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
               />
               <button
                 type="button"
                 onClick={() => setShowPw((v) => !v)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 h-9 px-3 rounded-lg text-xs font-medium text-white/70 hover:text-white hover:bg-white/10 transition"
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-9 px-3 rounded-lg text-xs font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition"
                 aria-label={showPw ? 'Hide password' : 'Show password'}
               >
                 {showPw ? 'Hide' : 'Show'}
@@ -106,14 +106,14 @@ export default function loginPage() {
                   setForm((p) => ({ ...p, remember: e.target.checked }))
                 }
                 type="checkbox"
-                className="h-4 w-4 rounded border-white/20 bg-black/30 text-white focus:ring-white/20"
+                className="h-4 w-4 rounded border-gray-300 bg-white text-blue-600 focus:ring-blue-500"
               />
-              <span className="text-sm text-white/75">Remember me</span>
+              <span className="text-sm text-gray-700">Remember me</span>
             </label>
 
             <button
               type="button"
-              className="text-sm text-white/70 hover:text-white underline underline-offset-4"
+              className="text-sm text-blue-600 hover:text-blue-800 underline underline-offset-4"
               onClick={() => alert('TODO: 비밀번호 찾기 페이지로 이동')}
             >
               Forgot password?
@@ -123,22 +123,22 @@ export default function loginPage() {
           <button
             type="submit"
             disabled={loading || !form.email.trim() || !form.password.trim()}
-            className="mt-5 w-full h-11 rounded-xl bg-white text-slate-900 font-semibold hover:bg-white/90 active:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="mt-5 w-full h-11 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
 
           <div className="mt-5 flex items-center gap-3">
-            <div className="h-px flex-1 bg-white/10" />
-            <span className="text-xs text-white/45">OR</span>
-            <div className="h-px flex-1 bg-white/10" />
+            <div className="h-px flex-1 bg-gray-300" />
+            <span className="text-xs text-gray-500">OR</span>
+            <div className="h-px flex-1 bg-gray-300" />
           </div>
           
-          <p className="mt-6 text-center text-sm text-white/60">
+          <p className="mt-6 text-center text-sm text-gray-600">
             Don&apos;t have an account?{' '}
             <button
               type="button"
-              className="text-white hover:underline underline-offset-4"
+              className="text-blue-600 hover:underline underline-offset-4"
               onClick={() => alert('TODO: 회원가입 페이지로 이동')}
             >
               Sign up
