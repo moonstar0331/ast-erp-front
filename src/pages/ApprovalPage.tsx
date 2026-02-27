@@ -15,14 +15,8 @@ const ApprovalPage: React.FC = () => {
     { docNumber: '출장기안서-2025-12-00001', requestDate: '2025-12-01', author: '권순찬 선임', writeDate: '2025-12-01', title: '출장기안서 - [LX 플랫폼] 하천변, 바람길 시뮬레이션 운영 배포 작업 출장' },
   ];
 
-  const sidebarLinks = [
-    { name: '신규기안', active: false },
-    { name: '결재현황', active: true },
-    { name: '결재환경설정', active: false },
-  ].map(link => ({...link, href: '#'}));
-
   return (
-    <SidebarLayout menuCode="APPROVAL" sidebarTitle="전자결재" sidebarLinks={sidebarLinks}>
+    <SidebarLayout>
         <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">결재현황</h2>
             <div className="flex items-center gap-2">

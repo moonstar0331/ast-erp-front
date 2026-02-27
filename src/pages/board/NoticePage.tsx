@@ -1,7 +1,9 @@
 import React from 'react';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
+import { useMenu } from '@/hooks/useMenu';
 
 const NoticePage: React.FC = () => {
+    const { subMenuName } = useMenu();
     const posts = [
         { id: 1, title: '2월 급여 지급 관련 통지', author: '석병택 교모', views: 136, date: '19시간', important: true },
         { id: 2, title: '2026년 건강검진', author: '안태옥 수석', views: 147, date: '1일', important: false },
@@ -20,15 +22,10 @@ const NoticePage: React.FC = () => {
         { id: 15, title: '2026년 1월 당직', author: '김현승 수석', views: 160, date: '2025-12-29', important: false },
     ];
 
-  const sidebarLinks = [
-    '공지사항', '업무 공유', 'AST 제도 및 규정', 'AST 경조사', 'AST 피플&컬쳐', 'AST 사내교육자료', 'AST 동호회/모임',
-    '업무 Idea 제안', '자유게시판', '사내게시판'
-  ].map((link, index) => ({ name: link, href: '#', active: index === 0 }));
-
   return (
-      <SidebarLayout menuCode="BOARD" sidebarTitle="게시판" sidebarLinks={sidebarLinks}>
+      <SidebarLayout>
           <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">공지사항</h2>
+              <h2 className="text-2xl font-bold">{subMenuName || '공지사항'}</h2>
               <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-md text-sm">
                   글쓰기
               </button>
