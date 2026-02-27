@@ -1,54 +1,60 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getMenuTree, type MenuItem } from '@/api/menu';
+import { type MenuItem } from '@/api/menu';
 import type { SidebarLink } from '@/types';
+import { useMenuContext } from '@/context/MenuContext';
 
 export function useMenu() {
     const location = useLocation();
-    const [menuTree, setMenuTree] = useState<MenuItem[]>([]);
-    const [currentRootMenu, setCurrentRootMenu] = useState<MenuItem | null>(null);
-    const [currentSubMenu, setCurrentSubMenu] = useState<MenuItem | null>(null);
+    const { menuTree } = useMenuContext();
 
-    useEffect(() => {
-        const fetchMenu = async () => {
-            try {
-                const tree = await getMenuTree();
-                setMenuTree(tree);
+    const menuData = useMemo(() => {
+        if (!menuTree || menuTree.length === 0) {
+            return { currentRootMenu: null, currentSubMenu: null };
+        }
 
-                // Find the matching menu item and its root parent
-                for (const root of tree) {
-                    if (root.path && location.pathname.startsWith(root.path)) {
-                        setCurrentRootMenu(root);
-                        if (location.pathname === root.path) {
-                            setCurrentSubMenu(root);
-                        } else if (root.children) {
-                            const sub = root.children.find(child => child.path && location.pathname === child.path);
-                            if (sub) setCurrentSubMenu(sub);
-                        }
-                        break;
-                    }
-                    if (root.children) {
-                        const sub = root.children.find(child => child.path && location.pathname.startsWith(child.path));
-                        if (sub) {
-                            setCurrentRootMenu(root);
-                            setCurrentSubMenu(sub);
-                            break;
-                        }
-                    }
+        // 모든 메뉴 항목을 평탄화하여 검색하기 쉽게 만듦
+        const allItems: MenuItem[] = [];
+        const flatten = (items: MenuItem[]) => {
+            items.forEach(item => {
+                allItems.push(item);
+                if (item.children && item.children.length > 0) {
+                    flatten(item.children);
                 }
-            } catch (error) {
-                console.error('Failed to fetch menu:', error);
-            }
+            });
         };
+        flatten(menuTree);
 
-        fetchMenu();
-    }, [location.pathname]);
+        // 1. 현재 경로와 가장 잘 일치하는 메뉴 항목 찾기
+        const currentSubMenu = allItems.find(item => item.path === location.pathname) ||
+                            allItems
+                                .filter(item => item.path && location.pathname.startsWith(item.path))
+                                .sort((a, b) => (b.path?.length || 0) - (a.path?.length || 0))[0] || null;
 
-    const sidebarLinks: SidebarLink[] = currentRootMenu?.children?.map(child => ({
-        name: child.menuName,
-        href: child.path || '#',
-        active: location.pathname === child.path
-    })) || [];
+        let currentRootMenu: MenuItem | null = null;
+        if (currentSubMenu) {
+            // 2. parentMenuId를 추적하여 최상위 메뉴를 찾습니다.
+            let root = currentSubMenu;
+            while (root.parentMenuId !== null) {
+                const parent = allItems.find(p => p.menuId === root.parentMenuId);
+                if (!parent) break;
+                root = parent;
+            }
+            currentRootMenu = root;
+        }
+
+        return { currentRootMenu, currentSubMenu };
+    }, [location.pathname, menuTree]);
+
+    const { currentRootMenu, currentSubMenu } = menuData;
+
+    const sidebarLinks: SidebarLink[] = useMemo(() => {
+        return currentRootMenu?.children?.map(child => ({
+            name: child.menuName,
+            href: child.path || '#',
+            active: location.pathname === child.path
+        })) || [];
+    }, [currentRootMenu, location.pathname]);
 
     return {
         menuTree,

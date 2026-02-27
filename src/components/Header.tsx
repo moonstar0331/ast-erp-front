@@ -1,22 +1,10 @@
-import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getMenuTree, type MenuItem } from '@/api/menu';
+import { type MenuItem } from '@/api/menu';
+import { useMenuContext } from '@/context/MenuContext';
 
 export default function Header() {
     const navigate = useNavigate();
-    const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-
-    useEffect(() => {
-        const fetchMenus = async () => {
-            try {
-                const data = await getMenuTree();
-                setMenuItems(data);
-            } catch (error) {
-                console.error('Failed to fetch menus:', error);
-            }
-        };
-        fetchMenus();
-    }, []);
+    const { menuTree: menuItems } = useMenuContext();
 
     const getMenuPath = (item: MenuItem) => {
         if (item.path) return item.path;
