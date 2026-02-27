@@ -1,17 +1,39 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getMenuTree, type MenuItem } from '@/api/menu';
 
 export default function Header() {
     const navigate = useNavigate();
+    const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+
+    useEffect(() => {
+        const fetchMenus = async () => {
+            try {
+                const data = await getMenuTree();
+                setMenuItems(data);
+            } catch (error) {
+                console.error('Failed to fetch menus:', error);
+            }
+        };
+        fetchMenus();
+    }, []);
+
+    const getMenuPath = (item: MenuItem) => {
+        if (item.path) return item.path;
+        if (item.menuName === '전자결재') return '/approval';
+        if (item.menuName === '게시판') return '/notice';
+        return '#';
+    };
 
     return (
         <header className="bg-white border-b">
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center gap-8">
-                        <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain" onClick={() => navigate('/dashboard')}/>
+                        <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain cursor-pointer" onClick={() => navigate('/dashboard')}/>
                         <nav className="hidden md:flex items-center gap-6 text-base font-semibold text-gray-600">
-                            {['게시판', '이메일', '일정관리', '업무관리', '전자결재', '웹디스크', '메모장', '명함관리'].map(item => (
-                                <Link to={item === '전자결재' ? '/approval' : (item === '게시판' ? '/notice' : '#')} key={item} className={`hover:text-gray-900`}>{item}</Link>
+                            {menuItems.map(item => (
+                                <Link to={getMenuPath(item)} key={item.menuId} className={`hover:text-gray-900`}>{item.menuName}</Link>
                             ))}
                         </nav>
                     </div>
