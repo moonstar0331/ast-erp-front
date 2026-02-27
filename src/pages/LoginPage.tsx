@@ -1,7 +1,7 @@
-import { login } from '@/api/auth';
+import { login, type LoginResponse } from '@/api/auth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { setCookie } from '@/utils/cookie';
 
 type LoginForm = {
   email: string;
@@ -26,10 +26,20 @@ export default function loginPage() {
     try {
       setLoading(true);
 
-      await login(form.email, form.password);
+      const res: LoginResponse = await login(form.email, form.password);
+
+      // 쿠키에 저장
+      const days = form.remember ? 7 : undefined; // 'Remember me' 체크 시 7일간 유지
+      setCookie('accessToken', res.accessToken, days);
+      setCookie('refreshToken', res.refreshToken, days);
+      setCookie('userUuid', res.userUuid, days);
+
       navigate('/dashboard');
 
       console.log('login submit', form);
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('로그인에 실패했습니다. 다시 시도해주세요.');
     } finally {
       setLoading(false);
     }
