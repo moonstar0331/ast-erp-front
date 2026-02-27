@@ -24,8 +24,17 @@ const apiClient = axios.create({
 // 요청 인터셉터
 apiClient.interceptors.request.use(
   (config) => {
-    // auth-service 로 가는 요청이 아닌 경우에만 Authorization 헤더 추가
-    if (config.url && !config.url.includes('/api/auth-service')) {
+    // 토큰이 필요 없는 엔드포인트 목록
+    const whiteList = [
+      '/api/auth-service/api/login',
+      '/api/auth-service/api/join',
+      '/api/auth-service/api/reissue',
+    ];
+
+    const isExcluded = config.url && whiteList.some((url) => config.url?.includes(url));
+
+    // 제외 목록에 해당하지 않는 경우에만 Authorization 헤더 추가
+    if (!isExcluded) {
       const token = getCookie('accessToken');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;

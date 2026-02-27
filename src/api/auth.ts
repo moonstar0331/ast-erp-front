@@ -27,3 +27,17 @@ export async function login(email: string, password: string): Promise<LoginRespo
 
   return res as unknown as LoginResponse;
 }
+
+export interface UserInfo {
+  userUuid: string;
+  email: string;
+  name: string;
+  deptName?: string;
+  positionName?: string;
+}
+
+// 사용자 정보 조회
+export async function getUserInfo(userUuid: string): Promise<UserInfo> {
+  const res = await apiClient.get(`${SERVICE_API.AUTH}/api/users/${userUuid}`);
+  return res as unknown as UserInfo;
+}
