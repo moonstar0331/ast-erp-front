@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from './pages/LoginPage.tsx';
 import DashboardPage from './pages/DashboardPage.tsx';
 import NoticePage from './pages/board/NoticePage.tsx';
@@ -22,17 +22,20 @@ function App() {
         <Route element={<Layout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
 
-            <Route path="/board" element={<NoticePage />} />
-            <Route path="/board/notice" element={<NoticePage />} />
-            <Route path="/board/work-share" element={<WorkSharePage />} />
-            <Route path="/board/policy" element={<PolicyPage />} />
-            <Route path="/board/event" element={<EventPage />} />
-            <Route path="/board/people" element={<PeoplePage />} />
-            <Route path="/board/education" element={<EducationPage />} />
-            <Route path="/board/club" element={<ClubPage />} />
-            <Route path="/board/idea" element={<IdeaPage />} />
-            <Route path="/board/free" element={<FreePage />} />
-            <Route path="/board/photo" element={<NoticePage />} />
+            {/* 게시판 관련 중첩 라우팅 */}
+            <Route path="/board">
+                <Route index element={<Navigate to="/board/notice" replace />} />
+                <Route path="notice" element={<NoticePage />} />
+                <Route path="work-share" element={<WorkSharePage />} />
+                <Route path="policy" element={<PolicyPage />} />
+                <Route path="event" element={<EventPage />} />
+                <Route path="people" element={<PeoplePage />} />
+                <Route path="education" element={<EducationPage />} />
+                <Route path="club" element={<ClubPage />} />
+                <Route path="idea" element={<IdeaPage />} />
+                <Route path="free" element={<FreePage />} />
+                <Route path="photo" element={<NoticePage />} />
+            </Route>
 
             <Route path="/approval" element={<ApprovalPage />} />
         </Route>
