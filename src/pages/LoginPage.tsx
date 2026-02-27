@@ -9,7 +9,7 @@ type LoginForm = {
   remember: boolean;
 };
 
-export default function loginPage() {
+export default function LoginPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState<LoginForm>({
     email: '',

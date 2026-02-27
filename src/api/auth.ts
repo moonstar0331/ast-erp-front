@@ -4,7 +4,7 @@ import { SERVICE_API } from './constants';
 export interface LoginResponse {
   accessToken: string;
   refreshToken: string;
-  user_uuid: string;
+  userUuid: string;
   msg?: string;
 }
 
