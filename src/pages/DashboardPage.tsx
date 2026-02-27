@@ -1,24 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 
 const Calendar: React.FC = () => {
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const days = ['일', '월', '화', '수', '목', '금', '토'];
-  const dates = [
-    [28, 29, 30, 31, 1, 2, 3],
-    [4, 5, 6, 7, 8, 9, 10],
-    [11, 12, 13, 14, 15, 16, 17],
-    [18, 19, 20, 21, 22, 23, 24],
-    [25, 26, 27, 28, 29, 30, 31],
-    [1, 2, 3, 4, 5, 6, 7],
-  ];
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+  const today = now.getDate();
+
+  // 달력 데이터 생성
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+  const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const lastDateOfPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+  const calendarDays = [];
+
+  // 이전 달의 끝 날짜들
+  for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+    calendarDays.push({ date: lastDateOfPrevMonth - i, isCurrent: false });
+  }
+
+  // 이번 달 날짜들
+  for (let i = 1; i <= lastDateOfMonth; i++) {
+    calendarDays.push({ date: i, isCurrent: true, isToday: i === today });
+  }
+
+  // 다음 달의 시작 날짜들 (총 42칸 채우기)
+  const remainingCells = 42 - calendarDays.length;
+  for (let i = 1; i <= remainingCells; i++) {
+    calendarDays.push({ date: i, isCurrent: false });
+  }
+
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   return (
     <div className="bg-white p-4 border rounded-lg">
       <div className="flex justify-between items-center mb-2">
-        <h3 className="font-bold text-lg">Jan</h3>
-        <span className="text-gray-500 text-sm">11:42</span>
+        <h3 className="font-bold text-lg">{monthNames[currentMonth]} {currentYear}</h3>
+        <span className="text-gray-500 text-sm">
+            {now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+        </span>
       </div>
-      <div className="grid grid-cols-7 text-center text-sm">
+      <div className="grid grid-cols-7 text-center text-xs border-b pb-1 mb-1">
         {days.map((day) => (
           <div key={day} className="font-semibold text-gray-600 py-1">
             {day}
@@ -26,16 +55,16 @@ const Calendar: React.FC = () => {
         ))}
       </div>
       <div className="grid grid-cols-7 text-center text-sm">
-        {dates.flat().map((date, i) => (
+        {calendarDays.map((item, i) => (
           <div
             key={i}
-            className={`py-1 ${
-              i === 16 ? 'bg-blue-500 text-white rounded-full' : ''
+            className={`py-1.5 flex items-center justify-center cursor-default ${
+              item.isToday ? 'bg-blue-600 text-white rounded-full font-bold' : ''
             } ${
-              (i >= 0 && i <= 3) || (i >= 32) ? 'text-gray-300' : ''
+              !item.isCurrent ? 'text-gray-300' : 'text-gray-700 hover:bg-gray-50 rounded-full'
             }`}
           >
-            {date}
+            {item.date}
           </div>
         ))}
       </div>
