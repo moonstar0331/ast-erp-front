@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookie } from './cookie';
 
 // 상태 코드 → 기본 에러 메시지 매핑
 const codeMessage: Record<number, string> = {
@@ -22,7 +23,16 @@ const apiClient = axios.create({
 
 // 요청 인터셉터
 apiClient.interceptors.request.use(
-  (config) => config,
+  (config) => {
+    // auth-service 로 가는 요청이 아닌 경우에만 Authorization 헤더 추가
+    if (config.url && !config.url.includes('/api/auth-service')) {
+      const token = getCookie('accessToken');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
   (error) => Promise.reject(error),
 );
 
