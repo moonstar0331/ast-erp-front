@@ -13,7 +13,19 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route element={<Layout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/notice" element={<NoticePage />} />
+
+            <Route path="/board" element={<NoticePage />} />
+            <Route path="/board/notice" element={<NoticePage />} />
+            <Route path="/board/work-share" element={<NoticePage />} />
+            <Route path="/board/policy" element={<NoticePage />} />
+            <Route path="/board/event" element={<NoticePage />} />
+            <Route path="/board/people" element={<NoticePage />} />
+            <Route path="/board/education" element={<NoticePage />} />
+            <Route path="/board/club" element={<NoticePage />} />
+            <Route path="/board/idea" element={<NoticePage />} />
+            <Route path="/board/free" element={<NoticePage />} />
+            <Route path="/board/photo" element={<NoticePage />} />
+
             <Route path="/approval" element={<ApprovalPage />} />
         </Route>
       </Routes>

@@ -22,7 +22,7 @@ const ApprovalPage: React.FC = () => {
   ].map(link => ({...link, href: '#'}));
 
   return (
-    <SidebarLayout sidebarTitle="전자결재" sidebarLinks={sidebarLinks}>
+    <SidebarLayout menuCode="APPROVAL" sidebarTitle="전자결재" sidebarLinks={sidebarLinks}>
         <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">결재현황</h2>
             <div className="flex items-center gap-2">

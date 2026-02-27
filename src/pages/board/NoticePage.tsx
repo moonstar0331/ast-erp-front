@@ -26,7 +26,7 @@ const NoticePage: React.FC = () => {
   ].map((link, index) => ({ name: link, href: '#', active: index === 0 }));
 
   return (
-      <SidebarLayout sidebarTitle="게시판" sidebarLinks={sidebarLinks}>
+      <SidebarLayout menuCode="BOARD" sidebarTitle="게시판" sidebarLinks={sidebarLinks}>
           <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold">공지사항</h2>
               <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-md text-sm">

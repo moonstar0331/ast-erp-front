@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import type { SidebarLink } from '../types';
 
 type SidebarProps = {
@@ -14,9 +15,9 @@ const Sidebar: React.FC<SidebarProps> = ({ title, links }) => {
                 <ul>
                     {links.map((link) => (
                         <li key={link.name}>
-                            <a href={link.href} className={`block py-2 px-3 rounded-md text-sm font-medium ${link.active ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100 text-gray-600'}`}>
+                            <Link to={link.href} className={`block py-2 px-3 rounded-md text-sm font-medium ${link.active ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100 text-gray-600'}`}>
                                 {link.name}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                 </ul>
