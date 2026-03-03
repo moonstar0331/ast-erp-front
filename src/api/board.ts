@@ -15,6 +15,9 @@ export interface BoardPost {
     postId: number;
     boardId: number;
     writerId: number;
+    writerName?: string;
+    author?: string; // Keep author if needed by prompt
+    views?: number;
     title: string;
     content: string;
     postStatusCode: string;

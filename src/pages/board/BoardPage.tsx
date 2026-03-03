@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
 import { useMenu } from '@/hooks/useMenu';
 import { getBoardPosts, type BoardPost } from '@/api/board';
+import { formatRelativeDate } from '@/utils/dateUtils';
 
 const BoardPage: React.FC = () => {
     const { subMenuName, subMenuId, subMenuCode } = useMenu();
@@ -86,6 +87,7 @@ const BoardPage: React.FC = () => {
                                       <input type="checkbox" />
                                   </td>
                                   <td className="py-4 px-6 text-center">
+                                      {/* @ts-ignore important is likely not in post yet */}
                                       {post.important ? (
                                           <span className="text-yellow-400">★</span>
                                       ) : (
@@ -95,9 +97,9 @@ const BoardPage: React.FC = () => {
                                   <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis max-w-md">
                                       {post.title}
                                   </th>
-                                  <td className="py-4 px-6 text-center">{post.views}</td>
-                                  <td className="py-4 px-6">{post.author}</td>
-                                  <td className="py-4 px-6 text-right">{post.updatedAt || post.createdAt}</td>
+                                  <td className="py-4 px-6 text-center">{post.views || 0}</td>
+                                  <td className="py-4 px-6">{post.author || post.writerName || '익명'}</td>
+                                  <td className="py-4 px-6 text-right">{formatRelativeDate(post.updatedAt || post.createdAt)}</td>
                               </tr>
                           ))
                       )}
