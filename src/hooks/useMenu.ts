@@ -60,9 +60,10 @@ export function useMenu() {
         menuTree,
         currentRootMenu,
         currentSubMenu,
-        menuCode: currentRootMenu?.menuCode || '',
         sidebarTitle: currentRootMenu?.menuName || '',
         sidebarLinks,
-        subMenuName: currentSubMenu?.menuName || ''
+        subMenuName: currentSubMenu?.menuName || '',
+        subMenuId: currentSubMenu?.menuId || null,
+        subMenuCode: currentSubMenu?.menuCode || ''
     };
 }

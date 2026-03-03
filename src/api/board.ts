@@ -1,0 +1,30 @@
+import apiClient from '@/utils/apiClient';
+import { SERVICE_API } from './constants';
+
+export interface Board {
+    boardId: number;
+    boardTypeCode: string;
+    boardName: string;
+    useCommentYn: boolean;
+    useYn: boolean;
+    menuId: number;
+    posts: BoardPost[];
+}
+
+export interface BoardPost {
+    postId: number;
+    boardId: number;
+    writerId: number;
+    title: string;
+    content: string;
+    postStatusCode: string;
+    createdAt: string;
+    createdBy: number;
+    updatedAt: string;
+    updatedBy: number;
+}
+
+export async function getBoardPosts(menuId: number): Promise<BoardPost[]> {
+    const res = await apiClient.get<Board>(`${SERVICE_API.BOARD}/api/board/menu/${menuId}`) as unknown as Board;
+    return res.posts || [];
+}

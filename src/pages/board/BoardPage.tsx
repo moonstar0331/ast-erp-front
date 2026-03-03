@@ -1,28 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
 import { useMenu } from '@/hooks/useMenu';
+import { getBoardPosts, type BoardPost } from '@/api/board';
 
 const BoardPage: React.FC = () => {
-    const { subMenuName } = useMenu();
+    const { subMenuName, subMenuId, subMenuCode } = useMenu();
+    const [posts, setPosts] = useState<BoardPost[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     
-    // Mock data - 실제 구현 시에는 API에서 받아올 수 있음
-    const posts = [
-        { id: 1, title: '2월 급여 지급 관련 통지', author: '석병택 교모', views: 136, date: '19시간', important: true },
-        { id: 2, title: '2026년 건강검진', author: '안태옥 수석', views: 147, date: '1일', important: false },
-        { id: 3, title: '2026년 설날 선물 관련 안내', author: '민들레 책임', views: 161, date: '4일', important: false },
-        { id: 4, title: '2025년 근로소득 연말정산', author: '안대륙 수석', views: 167, date: '6일', important: false },
-        { id: 5, title: '2026년도 연봉 인상 안내 및 연봉계약서 작성 방법', author: '민들레 책임', views: 164, date: '7일', important: false },
-        { id: 6, title: '육아 비과세 혜택 공지', author: '민들레 책임', views: 155, date: '7일', important: false },
-        { id: 7, title: '보직 변경 공지 (서윤정, 서지나)', author: '민들레 책임', views: 163, date: '2026-01-05', important: false },
-        { id: 8, title: '2026년도 조직 개편(임시 조직) 공지', author: '민들레 책임', views: 166, date: '2026-01-02', important: false },
-        { id: 9, title: '12월 식비, 교통비 확인하세요.', author: '민들레 책임', views: 157, date: '2026-01-02', important: false },
-        { id: 10, title: '2026 대표이사 신년사', author: '박예진', views: 163, date: '2026-01-02', important: false },
-        { id: 11, title: '2025년도 복지제도 안내 | 광고 본사 1층 카페마당 음료비용 지원', author: '민들레 책임', views: 164, date: '2026-01-02', important: false },
-        { id: 12, title: '2025년도 성과급 지급 관련 공지', author: '민들레 책임', views: 169, date: '2025-12-30', important: false },
-        { id: 13, title: '2026년 레벨업 명단 공지', author: '민들레 책임', views: 168, date: '2025-12-30', important: false },
-        { id: 14, title: '2026 신년맞이 떡국 나눔 행사 안내', author: '민들레 책임', views: 167, date: '2025-12-29', important: false },
-        { id: 15, title: '2026년 1월 당직', author: '김현승 수석', views: 160, date: '2025-12-29', important: false },
-    ];
+    useEffect(() => {
+        if (subMenuId) {
+            const fetchPosts = async () => {
+                try {
+                    setLoading(true);
+                    const data = await getBoardPosts(subMenuId);
+                    setPosts(data);
+                } catch (error) {
+                    console.error('Failed to fetch board posts:', error);
+                    setPosts([]);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            fetchPosts();
+        }
+    }, [subMenuId]);
 
   return (
       <SidebarLayout>
@@ -54,38 +56,54 @@ const BoardPage: React.FC = () => {
           </div>
 
           {/* Posts Table */}
-          <table className="w-full text-sm text-left text-gray-500">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                  <tr>
-                      <th scope="col" className="p-4">
-                          <input type="checkbox" />
-                      </th>
-                      <th scope="col" className="py-3 px-6 w-12">★</th>
-                      <th scope="col" className="py-3 px-6">제목</th>
-                      <th scope="col" className="py-3 px-6">조회</th>
-                      <th scope="col" className="py-3 px-6">작성자</th>
-                      <th scope="col" className="py-3 px-6">수정일자</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {posts.map(post => (
-                      <tr key={post.id} className="bg-white border-b hover:bg-gray-50">
-                          <td className="w-4 p-4">
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <table className="w-full text-sm text-left text-gray-500">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                      <tr>
+                          <th scope="col" className="p-4">
                               <input type="checkbox" />
-                          </td>
-                          <td className="py-4 px-6">
-                              {post.important ? '★' : '☆'}
-                          </td>
-                          <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                              {post.title}
                           </th>
-                          <td className="py-4 px-6">{post.views}</td>
-                          <td className="py-4 px-6">{post.author}</td>
-                          <td className="py-4 px-6">{post.date}</td>
+                          <th scope="col" className="py-3 px-6 w-12 text-center">★</th>
+                          <th scope="col" className="py-3 px-6">제목</th>
+                          <th scope="col" className="py-3 px-6 text-center">조회</th>
+                          <th scope="col" className="py-3 px-6">작성자</th>
+                          <th scope="col" className="py-3 px-6 text-right">수정일자</th>
                       </tr>
-                  ))}
-              </tbody>
-          </table>
+                  </thead>
+                  <tbody>
+                      {loading ? (
+                          <tr>
+                              <td colSpan={6} className="py-10 text-center">데이터를 불러오는 중입니다...</td>
+                          </tr>
+                      ) : posts.length === 0 ? (
+                          <tr>
+                              <td colSpan={6} className="py-10 text-center">등록된 게시물이 없습니다.</td>
+                          </tr>
+                      ) : (
+                          posts.map(post => (
+                              <tr key={post.postId} className="bg-white border-b hover:bg-gray-50">
+                                  <td className="w-4 p-4">
+                                      <input type="checkbox" />
+                                  </td>
+                                  <td className="py-4 px-6 text-center">
+                                      {post.important ? (
+                                          <span className="text-yellow-400">★</span>
+                                      ) : (
+                                          <span className="text-gray-300">☆</span>
+                                      )}
+                                  </td>
+                                  <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis max-w-md">
+                                      {post.title}
+                                  </th>
+                                  <td className="py-4 px-6 text-center">{post.views}</td>
+                                  <td className="py-4 px-6">{post.author}</td>
+                                  <td className="py-4 px-6 text-right">{post.updatedAt || post.createdAt}</td>
+                              </tr>
+                          ))
+                      )}
+                  </tbody>
+              </table>
+          </div>
       </SidebarLayout>
   );
 };
