@@ -2,6 +2,7 @@ import { login, type LoginResponse } from '@/api/auth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setCookie } from '@/utils/cookie';
+import { useMenuContext } from '@/context/MenuContext';
 
 type LoginForm = {
   email: string;
@@ -11,6 +12,7 @@ type LoginForm = {
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { refreshMenu } = useMenuContext();
   const [form, setForm] = useState<LoginForm>({
     email: '',
     password: '',
@@ -33,6 +35,8 @@ export default function LoginPage() {
       setCookie('accessToken', res.accessToken, days);
       setCookie('refreshToken', res.refreshToken, days);
       setCookie('userUuid', res.userUuid, days);
+
+      await refreshMenu();
 
       navigate('/dashboard');
 

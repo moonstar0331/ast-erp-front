@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { getMenuTree, type MenuItem } from '@/api/menu';
+import { getCookie } from '@/utils/cookie';
 
 interface MenuContextType {
   menuTree: MenuItem[];
@@ -16,6 +17,13 @@ export const MenuProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [error, setError] = useState<Error | null>(null);
 
   const fetchMenu = async () => {
+    const token = getCookie('accessToken');
+    if (!token) {
+      setMenuTree([]);
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       const data = await getMenuTree();
