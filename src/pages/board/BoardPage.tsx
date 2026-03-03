@@ -2,8 +2,10 @@ import React from 'react';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
 import { useMenu } from '@/hooks/useMenu';
 
-const PeoplePage: React.FC = () => {
+const BoardPage: React.FC = () => {
     const { subMenuName } = useMenu();
+    
+    // Mock data - 실제 구현 시에는 API에서 받아올 수 있음
     const posts = [
         { id: 1, title: '2월 급여 지급 관련 통지', author: '석병택 교모', views: 136, date: '19시간', important: true },
         { id: 2, title: '2026년 건강검진', author: '안태옥 수석', views: 147, date: '1일', important: false },
@@ -25,7 +27,7 @@ const PeoplePage: React.FC = () => {
   return (
       <SidebarLayout>
           <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">{subMenuName || 'AST 피플&컬쳐'}</h2>
+              <h2 className="text-2xl font-bold">{subMenuName || '게시판'}</h2>
               <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-md text-sm">
                   글쓰기
               </button>
@@ -88,4 +90,4 @@ const PeoplePage: React.FC = () => {
   );
 };
 
-export default PeoplePage;
+export default BoardPage;
