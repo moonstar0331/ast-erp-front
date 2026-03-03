@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getCookie } from './cookie';
+import { getCookie, eraseCookie } from './cookie';
 
 // 상태 코드 → 기본 에러 메시지 매핑
 const codeMessage: Record<number, string> = {
@@ -53,13 +53,27 @@ apiClient.interceptors.response.use(
       const { status, config } = error.response;
       const errorText = codeMessage[status] || error.response.statusText;
 
+      // 토큰이 필요 없는 엔드포인트 목록 (리다이렉트 제외)
+      const whiteList = [
+        '/api/auth-service/api/login',
+        '/api/auth-service/api/join',
+        '/api/auth-service/api/reissue',
+      ];
+      const isExcluded = config.url && whiteList.some((url) => config.url?.includes(url));
+
       // status 값에 따른 에러 및 redirect 처리
-      if (status === 401) {
-        console.error('Unauthorized: session expired. Redirecting…');
-        // window.location.href = '/';
-      } else if (status === 403) {
-        console.error('Forbidden: no permission for this resource.');
-        // window.location.href = '/';
+      if ((status === 401 || status === 403) && !isExcluded) {
+        console.error(`${status === 401 ? 'Unauthorized' : 'Forbidden'}: session expired or no permission.`);
+        
+        // 쿠키 삭제
+        eraseCookie('accessToken');
+        eraseCookie('refreshToken');
+        eraseCookie('userUuid');
+
+        // 현재 페이지가 로그인 페이지가 아닐 때만 리다이렉트
+        if (window.location.pathname !== '/') {
+          window.location.href = '/';
+        }
       } else if (status >= 500) {
         console.error('Server Error: an unexpected error occurred.');
       } else {
