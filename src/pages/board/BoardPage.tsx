@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
 import { useMenu } from '@/hooks/useMenu';
 import { getBoardPosts, type BoardPost } from '@/api/board';
 import { formatRelativeDate } from '@/utils/dateUtils';
 
 const BoardPage: React.FC = () => {
+    const location = useLocation();
     const { subMenuName, subMenuId, subMenuCode } = useMenu();
     const [posts, setPosts] = useState<BoardPost[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -95,7 +97,9 @@ const BoardPage: React.FC = () => {
                                       )}
                                   </td>
                                   <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis max-w-md">
-                                      {post.title}
+                                      <Link to={`${location.pathname}/${post.postId}`} className="hover:underline hover:text-blue-600">
+                                          {post.title}
+                                      </Link>
                                   </th>
                                   <td className="py-4 px-6 text-center">{post.views || 0}</td>
                                   <td className="py-4 px-6">{post.author || post.writerName || '익명'}</td>
