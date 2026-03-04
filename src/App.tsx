@@ -4,7 +4,7 @@ import DashboardPage from './pages/DashboardPage.tsx';
 import BoardPage from './pages/board/BoardPage.tsx';
 import BoardDetailPage from './pages/board/BoardDetailPage.tsx';
 import './tailwind.css';
-import ApprovalPage from "@/pages/ApprovalPage.tsx";
+import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
 import Layout from "@/components/Layout.tsx";
 
 function App() {
