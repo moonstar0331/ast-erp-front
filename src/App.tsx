@@ -7,6 +7,7 @@ import './tailwind.css';
 import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
 import ApprovalSettingPage from "@/pages/approval/ApprovalSettingPage.tsx";
 import SchedulePage from "@/pages/schedule/SchedulePage.tsx";
+import ReservePage from "@/pages/schedule/ReservePage.tsx";
 import Layout from "@/components/Layout.tsx";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/schedule">
                 <Route index element={<Navigate to="/schedule/monthly" replace />} />
                 <Route path="monthly" element={<SchedulePage />} />
+                <Route path="reserve" element={<ReservePage />} />
                 <Route path=":category" element={<BoardPage />} />
                 <Route path=":category/:postId" element={<BoardDetailPage />} />
             </Route>
