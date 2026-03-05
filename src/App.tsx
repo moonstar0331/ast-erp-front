@@ -20,6 +20,8 @@ import UserTagPage from "@/pages/user/UserTagPage.tsx";
 import UserBookmarkPage from "@/pages/user/UserBookmarkPage.tsx";
 import UserLayout from "@/pages/user/UserLayout.tsx";
 import Layout from "@/components/Layout.tsx";
+import AttendanceLayout from "@/pages/attendance/AttendanceLayout.tsx";
+import AttendancePage from "@/pages/attendance/AttendancePage.tsx";
 
 function App() {
   return (
@@ -28,6 +30,13 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route element={<Layout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
+
+            {/* 근태관리 관련 중첩 라우팅 */}
+            <Route path="/attendance" element={<AttendanceLayout />}>
+                <Route index element={<AttendancePage />} />
+                <Route path="status" element={<AttendancePage />} />
+                <Route path="monthly" element={<AttendancePage />} />
+            </Route>
 
             {/* 사용자 정보 관련 라우팅 */}
             <Route path="/user" element={<UserLayout />}>
