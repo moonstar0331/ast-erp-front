@@ -8,9 +8,15 @@ type SidebarLayoutProps = {
     menuCode?: string;
     sidebarTitle?: string;
     sidebarLinks?: SidebarLink[];
+    sidebarChildren?: ReactNode;
 };
 
-const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children, sidebarTitle: initialSidebarTitle, sidebarLinks: initialLinks }) => {
+const SidebarLayout: React.FC<SidebarLayoutProps> = ({ 
+    children, 
+    sidebarTitle: initialSidebarTitle, 
+    sidebarLinks: initialLinks,
+    sidebarChildren 
+}) => {
     const { sidebarTitle, sidebarLinks } = useMenu();
 
     const currentMenuName = initialSidebarTitle || sidebarTitle;
@@ -18,7 +24,9 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({ children, sidebarTitle: i
 
     return (
         <div className="flex flex-row gap-6 w-full">
-            <Sidebar title={currentMenuName} links={links} />
+            <Sidebar title={currentMenuName} links={links}>
+                {sidebarChildren}
+            </Sidebar>
             <div className="flex-1 bg-white p-6 rounded-lg border">
                 {children}
             </div>

@@ -5,14 +5,15 @@ import type { SidebarLink } from '../types';
 type SidebarProps = {
     title: string;
     links: SidebarLink[];
+    children?: React.ReactNode;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ title, links }) => {
+const Sidebar: React.FC<SidebarProps> = ({ title, links, children }) => {
     return (
         <aside className="w-60 flex-shrink-0">
-            <div className="bg-white p-4 rounded-lg border h-full">
+            <div className="bg-white p-4 rounded-lg border h-full flex flex-col">
                 <h2 className="text-xl font-bold mb-4">{title}</h2>
-                <ul>
+                <ul className="mb-6">
                     {links.map((link) => (
                         <li key={link.name}>
                             <Link to={link.href} className={`block py-2 px-3 rounded-md text-sm font-medium ${link.active ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100 text-gray-600'}`}>
@@ -21,6 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({ title, links }) => {
                         </li>
                     ))}
                 </ul>
+                {children}
             </div>
         </aside>
     );

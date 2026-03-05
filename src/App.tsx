@@ -6,6 +6,7 @@ import BoardDetailPage from './pages/board/BoardDetailPage.tsx';
 import './tailwind.css';
 import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
 import ApprovalSettingPage from "@/pages/approval/ApprovalSettingPage.tsx";
+import SchedulePage from "@/pages/schedule/SchedulePage.tsx";
 import Layout from "@/components/Layout.tsx";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             {/* 일정관리 관련 중첩 라우팅 */}
             <Route path="/schedule">
                 <Route index element={<Navigate to="/schedule/monthly" replace />} />
+                <Route path="monthly" element={<SchedulePage />} />
                 <Route path=":category" element={<BoardPage />} />
                 <Route path=":category/:postId" element={<BoardDetailPage />} />
             </Route>
