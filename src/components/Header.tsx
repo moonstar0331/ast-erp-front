@@ -45,7 +45,7 @@ export default function Header() {
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center gap-8">
-                        <img src="/image/logo_ast.png" alt="AST Logo" className="h-9 object-contain cursor-pointer" onClick={() => navigate('/dashboard')}/>
+                        <img src="/image/logo_ast.png" alt="AST Logo" className="h-10 object-contain cursor-pointer" onClick={() => navigate('/dashboard')}/>
                         <nav className="hidden md:flex items-center gap-6 text-base font-semibold text-gray-600">
                             {menuItems.map(item => {
                                 const isActive = currentRootMenu?.menuId === item.menuId;
