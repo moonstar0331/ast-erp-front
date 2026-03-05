@@ -1,18 +1,6 @@
 import React from 'react';
-import SidebarLayout from "@/components/SidebarLayout.tsx";
 
 const UserInfoPage: React.FC = () => {
-    const sidebarLinks = [
-        { name: '사용자정보', href: '/user/info', active: true },
-        { name: '직원명부', href: '/user/list', active: false },
-        { name: '알림', href: '/user/notice', active: false },
-        { name: '메시지', href: '/user/msg', active: false },
-        { name: '보낸메시지', href: '/user/sentmsg', active: false },
-        { name: '그룹관리', href: '/user/group', active: false },
-        { name: '태그설정', href: '/user/tag', active: false },
-        { name: '즐겨찾기', href: '/user/bookmark', active: false },
-    ];
-
     const infoFields = [
         { label: '사용자아이디', value: 'kimmoonsung' },
         { label: '이름', value: '김문성' },
@@ -53,88 +41,86 @@ const UserInfoPage: React.FC = () => {
     ];
 
     return (
-        <SidebarLayout sidebarTitle="Info" sidebarLinks={sidebarLinks}>
-            <div className="flex flex-col gap-6 bg-white">
-                {/* Top Toolbar */}
-                <div className="flex gap-2 border-b border-gray-100 pb-4">
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
-                        👤 인사기록카드
-                    </button>
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
-                        🔑 비밀번호변경 : 2025-01-02
-                    </button>
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
-                        ➡️ 로그인이력
-                    </button>
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
-                        🔔 브라우저 알림
-                    </button>
-                    <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
-                        💬 채팅창 초기화
-                    </button>
-                </div>
+        <div className="flex flex-col gap-6 bg-white">
+            {/* Top Toolbar */}
+            <div className="flex gap-2 border-b border-gray-100 pb-4">
+                <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
+                    👤 인사기록카드
+                </button>
+                <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
+                    🔑 비밀번호변경 : 2025-01-02
+                </button>
+                <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
+                    ➡️ 로그인이력
+                </button>
+                <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
+                    🔔 브라우저 알림
+                </button>
+                <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
+                    💬 채팅창 초기화
+                </button>
+            </div>
 
-                <div className="flex gap-10">
-                    {/* Left Section: Profile & Basic Info */}
-                    <div className="flex flex-col gap-6 w-[450px]">
-                        <div className="flex gap-6 items-start">
-                            <div className="w-24 h-24 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center overflow-hidden">
-                                <span className="text-gray-300 text-5xl">👤</span>
-                            </div>
-                            <div className="flex gap-2 pt-4">
-                                <button className="px-3 py-1 border border-gray-300 rounded text-xs hover:bg-gray-50 bg-white">사진변경</button>
-                                <button className="px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600">삭제하기</button>
-                            </div>
+            <div className="flex gap-10">
+                {/* Left Section: Profile & Basic Info */}
+                <div className="flex flex-col gap-6 w-[450px]">
+                    <div className="flex gap-6 items-start">
+                        <div className="w-24 h-24 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center overflow-hidden">
+                            <span className="text-gray-300 text-5xl">👤</span>
                         </div>
-
-                        <div className="flex flex-col border-t border-gray-100">
-                            {infoFields.map((field, idx) => (
-                                <div key={idx} className="flex border-b border-gray-100">
-                                    <div className="w-32 bg-gray-50/50 px-4 py-2.5 text-[13px] font-medium text-gray-600 border-r border-gray-100">
-                                        {field.label}
-                                    </div>
-                                    <div className="flex-1 px-4 py-2.5 text-[13px] text-gray-800">
-                                        {field.value || <span className="text-gray-300">-</span>}
-                                    </div>
-                                </div>
-                            ))}
+                        <div className="flex gap-2 pt-4">
+                            <button className="px-3 py-1 border border-gray-300 rounded text-xs hover:bg-gray-50 bg-white">사진변경</button>
+                            <button className="px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600">삭제하기</button>
                         </div>
                     </div>
 
-                    {/* Right Section: Detailed Settings */}
-                    <div className="flex-1 flex flex-col border-t border-gray-100">
-                        {settings.map((setting, idx) => (
+                    <div className="flex flex-col border-t border-gray-100">
+                        {infoFields.map((field, idx) => (
                             <div key={idx} className="flex border-b border-gray-100">
-                                <div className="w-40 bg-gray-50/50 px-4 py-2.5 text-[13px] font-medium text-gray-600 border-r border-gray-100">
-                                    {setting.label}
+                                <div className="w-32 bg-gray-50/50 px-4 py-2.5 text-[13px] font-medium text-gray-600 border-r border-gray-100">
+                                    {field.label}
                                 </div>
-                                <div className="flex-1 px-4 py-2.5 text-[13px]">
-                                    {setting.type === 'checkbox' && (
-                                        <div className="flex gap-4">
-                                            {setting.options?.map((opt, i) => (
-                                                <label key={i} className="flex items-center gap-1.5 cursor-pointer">
-                                                    <input type="checkbox" checked={setting.checked?.[i]} readOnly className="w-3.5 h-3.5" />
-                                                    <span className="text-gray-700">{opt}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    )}
-                                    {setting.type === 'select' && (
-                                        <select className="border border-gray-300 rounded px-2 py-1 text-sm w-full outline-none focus:border-blue-400">
-                                            <option>{setting.value}</option>
-                                        </select>
-                                    )}
-                                    {setting.type === 'text' && (
-                                        <input type="text" value={setting.value} readOnly className="border border-gray-300 rounded px-3 py-1 text-sm w-full bg-white text-gray-500" />
-                                    )}
-                                    {setting.type === 'custom' && setting.render?.()}
+                                <div className="flex-1 px-4 py-2.5 text-[13px] text-gray-800">
+                                    {field.value || <span className="text-gray-300">-</span>}
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
+
+                {/* Right Section: Detailed Settings */}
+                <div className="flex-1 flex flex-col border-t border-gray-100">
+                    {settings.map((setting, idx) => (
+                        <div key={idx} className="flex border-b border-gray-100">
+                            <div className="w-40 bg-gray-50/50 px-4 py-2.5 text-[13px] font-medium text-gray-600 border-r border-gray-100">
+                                {setting.label}
+                            </div>
+                            <div className="flex-1 px-4 py-2.5 text-[13px]">
+                                {setting.type === 'checkbox' && (
+                                    <div className="flex gap-4">
+                                        {setting.options?.map((opt, i) => (
+                                            <label key={i} className="flex items-center gap-1.5 cursor-pointer">
+                                                <input type="checkbox" checked={setting.checked?.[i]} readOnly className="w-3.5 h-3.5" />
+                                                <span className="text-gray-700">{opt}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                )}
+                                {setting.type === 'select' && (
+                                    <select className="border border-gray-300 rounded px-2 py-1 text-sm w-full outline-none focus:border-blue-400">
+                                        <option>{setting.value}</option>
+                                    </select>
+                                )}
+                                {setting.type === 'text' && (
+                                    <input type="text" value={setting.value} readOnly className="border border-gray-300 rounded px-3 py-1 text-sm w-full bg-white text-gray-500" />
+                                )}
+                                {setting.type === 'custom' && setting.render?.()}
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </SidebarLayout>
+        </div>
     );
 };
 

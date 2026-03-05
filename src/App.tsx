@@ -11,6 +11,7 @@ import ReservePage from "@/pages/schedule/ReservePage.tsx";
 import GroupPage from "@/pages/schedule/GroupPage.tsx";
 import ScheduleLayout from "@/pages/schedule/ScheduleLayout.tsx";
 import UserInfoPage from "@/pages/user/UserInfoPage.tsx";
+import UserLayout from "@/pages/user/UserLayout.tsx";
 import Layout from "@/components/Layout.tsx";
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
 
             {/* 사용자 정보 관련 라우팅 */}
-            <Route path="/user">
+            <Route path="/user" element={<UserLayout />}>
+                <Route index element={<Navigate to="/user/info" replace />} />
                 <Route path="info" element={<UserInfoPage />} />
             </Route>
 
