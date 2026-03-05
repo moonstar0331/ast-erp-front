@@ -1,11 +1,8 @@
 import React from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
 
 const ScheduleLayout: React.FC = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-
     const sidebarContent = (
         <div className="flex flex-col gap-6">
             {/* Clock */}
