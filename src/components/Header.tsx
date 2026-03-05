@@ -82,7 +82,13 @@ export default function Header() {
                                 {/* User Context Menu (Modal-like dropdown) */}
                                 {isUserMenuOpen && (
                                     <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                                        <button className="w-full flex items-center gap-4 px-4 py-2.5 text-gray-700 hover:bg-gray-50 text-[15px]">
+                                        <button 
+                                            onClick={() => {
+                                                navigate('/user/info');
+                                                setIsUserMenuOpen(false);
+                                            }}
+                                            className="w-full flex items-center gap-4 px-4 py-2.5 text-gray-700 hover:bg-gray-50 text-[15px]"
+                                        >
                                             <span className="text-xl w-6 flex justify-center">👤</span>
                                             <span className="font-medium">사용자정보</span>
                                         </button>

@@ -10,6 +10,7 @@ import SchedulePage from "@/pages/schedule/SchedulePage.tsx";
 import ReservePage from "@/pages/schedule/ReservePage.tsx";
 import GroupPage from "@/pages/schedule/GroupPage.tsx";
 import ScheduleLayout from "@/pages/schedule/ScheduleLayout.tsx";
+import UserInfoPage from "@/pages/user/UserInfoPage.tsx";
 import Layout from "@/components/Layout.tsx";
 
 function App() {
@@ -19,6 +20,11 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route element={<Layout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
+
+            {/* 사용자 정보 관련 라우팅 */}
+            <Route path="/user">
+                <Route path="info" element={<UserInfoPage />} />
+            </Route>
 
             {/* 게시판 관련 중첩 라우팅 */}
             <Route path="/board">
