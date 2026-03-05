@@ -14,6 +14,7 @@ import UserInfoPage from "@/pages/user/UserInfoPage.tsx";
 import UserListPage from "@/pages/user/UserListPage.tsx";
 import UserNoticePage from "@/pages/user/UserNoticePage.tsx";
 import UserMsgPage from "@/pages/user/UserMsgPage.tsx";
+import UserSentMsgPage from "@/pages/user/UserSentMsgPage.tsx";
 import UserLayout from "@/pages/user/UserLayout.tsx";
 import Layout from "@/components/Layout.tsx";
 
@@ -32,6 +33,7 @@ function App() {
                 <Route path="list" element={<UserListPage />} />
                 <Route path="notice" element={<UserNoticePage />} />
                 <Route path="msg" element={<UserMsgPage />} />
+                <Route path="sentmsg" element={<UserSentMsgPage />} />
             </Route>
 
             {/* 게시판 관련 중첩 라우팅 */}
