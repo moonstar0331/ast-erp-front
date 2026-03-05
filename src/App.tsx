@@ -5,6 +5,7 @@ import BoardPage from './pages/board/BoardPage.tsx';
 import BoardDetailPage from './pages/board/BoardDetailPage.tsx';
 import './tailwind.css';
 import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
+import ApprovalSettingPage from "@/pages/approval/ApprovalSettingPage.tsx";
 import Layout from "@/components/Layout.tsx";
 
 function App() {
@@ -49,8 +50,7 @@ function App() {
                 <Route path="new" element={<BoardPage />} />
                 <Route path="new/:postId" element={<BoardDetailPage />} />
                 <Route path="status" element={<ApprovalPage />} />
-                <Route path="setting" element={<BoardPage />} />
-                <Route path="setting/:postId" element={<BoardDetailPage />} />
+                <Route path="setting" element={<ApprovalSettingPage />} />
             </Route>
 
             {/* 웹디스크 관련 중첩 라우팅 */}
