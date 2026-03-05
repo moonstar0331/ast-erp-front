@@ -4,13 +4,13 @@ import SidebarLayout from "@/components/SidebarLayout.tsx";
 const UserInfoPage: React.FC = () => {
     const sidebarLinks = [
         { name: '사용자정보', href: '/user/info', active: true },
-        { name: '직원명부', href: '#', active: false },
-        { name: '알림', href: '#', active: false },
-        { name: '메시지', href: '#', active: false },
-        { name: '보낸메시지', href: '#', active: false },
-        { name: '그룹관리', href: '#', active: false },
-        { name: '태그설정', href: '#', active: false },
-        { name: '즐겨찾기', href: '#', active: false },
+        { name: '직원명부', href: '/user/list', active: false },
+        { name: '알림', href: '/user/notice', active: false },
+        { name: '메시지', href: '/user/msg', active: false },
+        { name: '보낸메시지', href: '/user/sentmsg', active: false },
+        { name: '그룹관리', href: '/user/group', active: false },
+        { name: '태그설정', href: '/user/tag', active: false },
+        { name: '즐겨찾기', href: '/user/bookmark', active: false },
     ];
 
     const infoFields = [
