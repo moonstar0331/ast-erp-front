@@ -8,6 +8,7 @@ import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
 import ApprovalSettingPage from "@/pages/approval/ApprovalSettingPage.tsx";
 import SchedulePage from "@/pages/schedule/SchedulePage.tsx";
 import ReservePage from "@/pages/schedule/ReservePage.tsx";
+import ScheduleLayout from "@/pages/schedule/ScheduleLayout.tsx";
 import Layout from "@/components/Layout.tsx";
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
             </Route>
 
             {/* 일정관리 관련 중첩 라우팅 */}
-            <Route path="/schedule">
+            <Route path="/schedule" element={<ScheduleLayout />}>
                 <Route index element={<Navigate to="/schedule/monthly" replace />} />
                 <Route path="monthly" element={<SchedulePage />} />
                 <Route path="reserve" element={<ReservePage />} />
