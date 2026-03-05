@@ -17,6 +17,7 @@ import UserMsgPage from "@/pages/user/UserMsgPage.tsx";
 import UserSentMsgPage from "@/pages/user/UserSentMsgPage.tsx";
 import UserGroupPage from "@/pages/user/UserGroupPage.tsx";
 import UserTagPage from "@/pages/user/UserTagPage.tsx";
+import UserBookmarkPage from "@/pages/user/UserBookmarkPage.tsx";
 import UserLayout from "@/pages/user/UserLayout.tsx";
 import Layout from "@/components/Layout.tsx";
 
@@ -38,6 +39,7 @@ function App() {
                 <Route path="sentmsg" element={<UserSentMsgPage />} />
                 <Route path="group" element={<UserGroupPage />} />
                 <Route path="tag" element={<UserTagPage />} />
+                <Route path="bookmark" element={<UserBookmarkPage />} />
             </Route>
 
             {/* 게시판 관련 중첩 라우팅 */}
