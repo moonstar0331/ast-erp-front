@@ -8,6 +8,7 @@ import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
 import ApprovalSettingPage from "@/pages/approval/ApprovalSettingPage.tsx";
 import SchedulePage from "@/pages/schedule/SchedulePage.tsx";
 import ReservePage from "@/pages/schedule/ReservePage.tsx";
+import GroupPage from "@/pages/schedule/GroupPage.tsx";
 import ScheduleLayout from "@/pages/schedule/ScheduleLayout.tsx";
 import Layout from "@/components/Layout.tsx";
 
@@ -38,6 +39,7 @@ function App() {
                 <Route index element={<Navigate to="/schedule/monthly" replace />} />
                 <Route path="monthly" element={<SchedulePage />} />
                 <Route path="reserve" element={<ReservePage />} />
+                <Route path="group" element={<GroupPage />} />
                 <Route path=":category" element={<BoardPage />} />
                 <Route path=":category/:postId" element={<BoardDetailPage />} />
             </Route>
