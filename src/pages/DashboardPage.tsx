@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
+import { useMenuContext } from '@/context/MenuContext';
 
 const Calendar: React.FC = () => {
   const [now, setNow] = useState(new Date());
@@ -73,6 +74,7 @@ const Calendar: React.FC = () => {
 };
 
 export default function DashboardPage() {
+    const { menuTree } = useMenuContext();
     const notifications = [
         { title: '배포문서가 도착했습니다. - W03_디지털리얼리티연구소_주간업무보고', sender: '이동우 대표이사', time: '1 시간' },
         { title: '배포문서가 도착했습니다. - W03_XR사업본부_주간업무보고', sender: '이동우 대표이사', time: '1 일' },
@@ -90,8 +92,14 @@ export default function DashboardPage() {
             <img src="/image/main_2026.png" alt="Robust banner" className="absolute top-0 right-0 h-full w-full p-8" />
             <div className="absolute bottom-4 right-4">
                 <div className="flex gap-2">
-                    {['게시판', '이메일', '메시지', '업무보고', '전자결재'].map(item => (
-                        <Link to={item === '전자결재' ? '/approval' : (item === '게시판' ? '/notice' : '#')} key={item} className={`hover:text-gray-900 border p-1 rounded border-black/40`}>{item}</Link>
+                    {menuTree.slice(0, 5).map(item => (
+                        <Link 
+                            to={item.path || '#'} 
+                            key={item.menuId} 
+                            className="hover:text-gray-900 border p-1 px-2 rounded border-black/40 bg-white/50 backdrop-blur-sm text-sm font-medium"
+                        >
+                            {item.menuName}
+                        </Link>
                     ))}
                 </div>
             </div>
