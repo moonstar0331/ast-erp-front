@@ -22,6 +22,7 @@ import UserLayout from "@/pages/user/UserLayout.tsx";
 import Layout from "@/components/Layout.tsx";
 import AttendanceLayout from "@/pages/attendance/AttendanceLayout.tsx";
 import AttendancePage from "@/pages/attendance/AttendancePage.tsx";
+import AttendanceStatusPage from "@/pages/attendance/AttendanceStatusPage.tsx";
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
             {/* 근태관리 관련 중첩 라우팅 */}
             <Route path="/attendance" element={<AttendanceLayout />}>
                 <Route index element={<AttendancePage />} />
-                <Route path="status" element={<AttendancePage />} />
+                <Route path="status" element={<AttendanceStatusPage />} />
                 <Route path="monthly" element={<AttendancePage />} />
             </Route>
 
