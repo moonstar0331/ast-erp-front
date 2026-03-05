@@ -11,6 +11,7 @@ import ReservePage from "@/pages/schedule/ReservePage.tsx";
 import GroupPage from "@/pages/schedule/GroupPage.tsx";
 import ScheduleLayout from "@/pages/schedule/ScheduleLayout.tsx";
 import UserInfoPage from "@/pages/user/UserInfoPage.tsx";
+import UserListPage from "@/pages/user/UserListPage.tsx";
 import UserLayout from "@/pages/user/UserLayout.tsx";
 import Layout from "@/components/Layout.tsx";
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/user" element={<UserLayout />}>
                 <Route index element={<Navigate to="/user/info" replace />} />
                 <Route path="info" element={<UserInfoPage />} />
+                <Route path="list" element={<UserListPage />} />
             </Route>
 
             {/* 게시판 관련 중첩 라우팅 */}
