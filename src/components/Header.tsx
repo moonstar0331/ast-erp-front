@@ -102,7 +102,12 @@ export default function Header() {
                                             <span className="text-xl w-6 flex justify-center text-gray-500">🕒</span>
                                             <span className="font-medium">근태관리</span>
                                         </button>
-                                        <button className="w-full flex items-center gap-4 px-4 py-2.5 text-gray-700 hover:bg-gray-50 text-[15px]">
+                                        <button
+                                            onClick={() => {
+                                                navigate('/user/msg');
+                                                setIsUserMenuOpen(false);
+                                            }}
+                                            className="w-full flex items-center gap-4 px-4 py-2.5 text-gray-700 hover:bg-gray-50 text-[15px]">
                                             <span className="text-xl w-6 flex justify-center text-gray-500">✉️</span>
                                             <span className="font-medium">메시지</span>
                                         </button>
