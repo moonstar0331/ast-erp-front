@@ -1,8 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
 
 const ApprovalSettingPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState('서명');
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [isDrawing, setIsDrawing] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(true);
+
+    useEffect(() => {
+        if (activeTab === '서명' && canvasRef.current) {
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                // Set canvas internal resolution to match displayed size
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                ctx.lineWidth = 2.5;
+                ctx.strokeStyle = '#000000';
+            }
+        }
+    }, [activeTab]);
+
+    const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        setIsDrawing(true);
+        setIsEmpty(false);
+    };
+
+    const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
+        if (!isDrawing) return;
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    };
+
+    const stopDrawing = () => {
+        setIsDrawing(false);
+    };
+
+    const clearCanvas = () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        setIsEmpty(true);
+    };
 
     const tabs = [
         { id: '서명', name: '서명', icon: '🖋️' },
@@ -41,14 +106,25 @@ const ApprovalSettingPage: React.FC = () => {
                                 {/* Signature Drawing Box */}
                                 <div className="flex flex-col gap-3">
                                     <div className="w-[480px] h-[320px] border border-gray-300 rounded bg-white shadow-sm flex items-center justify-center relative">
-                                        {/* In a real app, use a library like react-signature-canvas */}
-                                        <div className="absolute inset-0 flex items-center justify-center text-gray-200 pointer-events-none">
-                                            <span className="text-sm font-light select-none">마우스로 서명을 그려주세요</span>
-                                        </div>
-                                        <canvas className="w-full h-full cursor-crosshair z-0" />
+                                        {isEmpty && (
+                                            <div className="absolute inset-0 flex items-center justify-center text-gray-200 pointer-events-none">
+                                                <span className="text-sm font-light select-none">마우스로 서명을 그려주세요</span>
+                                            </div>
+                                        )}
+                                        <canvas 
+                                            ref={canvasRef}
+                                            onMouseDown={startDrawing}
+                                            onMouseMove={draw}
+                                            onMouseUp={stopDrawing}
+                                            onMouseLeave={stopDrawing}
+                                            className="w-full h-full cursor-crosshair z-0" 
+                                        />
                                     </div>
                                     <div className="flex gap-2">
-                                        <button className="px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50 bg-white text-gray-700 min-w-[60px]">
+                                        <button 
+                                            onClick={clearCanvas}
+                                            className="px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50 bg-white text-gray-700 min-w-[60px]"
+                                        >
                                             Clear
                                         </button>
                                         <button className="px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50 bg-white text-gray-700 min-w-[70px]">
