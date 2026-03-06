@@ -4,7 +4,9 @@ import DashboardPage from './pages/DashboardPage.tsx';
 import BoardPage from './pages/board/BoardPage.tsx';
 import BoardDetailPage from './pages/board/BoardDetailPage.tsx';
 import BoardEditPage from './pages/board/BoardEditPage.tsx';
+import EmailPage from './pages/email/EmailPage.tsx';
 import './tailwind.css';
+
 import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
 import ApprovalSettingPage from "@/pages/approval/ApprovalSettingPage.tsx";
 import SchedulePage from "@/pages/schedule/SchedulePage.tsx";
@@ -67,8 +69,7 @@ function App() {
             {/* 이메일 관련 중첩 라우팅 */}
             <Route path="/email">
                 <Route index element={<Navigate to="/email/all" replace />} />
-                <Route path=":category" element={<BoardPage />} />
-                <Route path=":category/:postId" element={<BoardDetailPage />} />
+                <Route path=":category" element={<EmailPage />} />
             </Route>
 
             {/* 일정관리 관련 중첩 라우팅 */}
