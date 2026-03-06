@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
-import { useMenu } from '@/hooks/useMenu';
 
 const BoardEditPage: React.FC = () => {
     const navigate = useNavigate();
-    const { subMenuName } = useMenu();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
