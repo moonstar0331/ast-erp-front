@@ -43,3 +43,9 @@ export async function getUserInfo(userUuid: string): Promise<UserInfo> {
   const res = await apiClient.get(`${SERVICE_API.AUTH}/api/users/${userUuid}`);
   return res as unknown as UserInfo;
 }
+
+// 사용자 목록 조회
+export async function getUsers(): Promise<UserInfo[]> {
+  const res = await apiClient.get(`${SERVICE_API.AUTH}/api/users`);
+  return res as unknown as UserInfo[];
+}
