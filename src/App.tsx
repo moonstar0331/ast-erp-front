@@ -12,6 +12,7 @@ import GroupPage from "@/pages/schedule/GroupPage.tsx";
 import ScheduleLayout from "@/pages/schedule/ScheduleLayout.tsx";
 import UserInfoPage from "@/pages/user/UserInfoPage.tsx";
 import UserListPage from "@/pages/user/UserListPage.tsx";
+import UserViewPage from "@/pages/user/UserViewPage.tsx";
 import UserNoticePage from "@/pages/user/UserNoticePage.tsx";
 import UserMsgPage from "@/pages/user/UserMsgPage.tsx";
 import UserSentMsgPage from "@/pages/user/UserSentMsgPage.tsx";
@@ -45,6 +46,7 @@ function App() {
                 <Route index element={<Navigate to="/user/info" replace />} />
                 <Route path="info" element={<UserInfoPage />} />
                 <Route path="list" element={<UserListPage />} />
+                <Route path="view/:userUuid" element={<UserViewPage />} />
                 <Route path="notice" element={<UserNoticePage />} />
                 <Route path="msg" element={<UserMsgPage />} />
                 <Route path="sentmsg" element={<UserSentMsgPage />} />

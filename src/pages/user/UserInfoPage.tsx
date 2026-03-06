@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getUserInfo, type UserInfo } from '@/api/auth';
 import { getCookie } from '@/utils/cookie';
 
 const UserInfoPage: React.FC = () => {
     const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -19,6 +21,13 @@ const UserInfoPage: React.FC = () => {
         };
         fetchUserInfo();
     }, []);
+
+    const handleViewRecordCard = () => {
+        const userUuid = getCookie('userUuid');
+        if (userUuid) {
+            navigate(`/user/view/${userUuid}`);
+        }
+    };
 
     const infoFields = [
         { label: '사용자아이디', value: userInfo?.loginId || '' },
@@ -63,7 +72,10 @@ const UserInfoPage: React.FC = () => {
         <div className="flex flex-col gap-6 bg-white">
             {/* Top Toolbar */}
             <div className="flex gap-2 border-b border-gray-100 pb-4">
-                <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
+                <button 
+                    onClick={handleViewRecordCard}
+                    className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50"
+                >
                     👤 인사기록카드
                 </button>
                 <button className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 rounded text-[13px] hover:bg-gray-50">
