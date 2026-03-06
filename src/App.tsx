@@ -5,6 +5,7 @@ import BoardPage from './pages/board/BoardPage.tsx';
 import BoardDetailPage from './pages/board/BoardDetailPage.tsx';
 import BoardEditPage from './pages/board/BoardEditPage.tsx';
 import EmailPage from './pages/email/EmailPage.tsx';
+import EmailSettingsPage from './pages/email/EmailSettingsPage.tsx';
 import './tailwind.css';
 
 import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
@@ -69,6 +70,7 @@ function App() {
             {/* 이메일 관련 중첩 라우팅 */}
             <Route path="/email">
                 <Route index element={<Navigate to="/email/all" replace />} />
+                <Route path="settings" element={<EmailSettingsPage />} />
                 <Route path=":category" element={<EmailPage />} />
             </Route>
 
