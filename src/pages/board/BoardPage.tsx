@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import SidebarLayout from "@/components/SidebarLayout.tsx";
 import { useMenu } from '@/hooks/useMenu';
 import { getBoardPosts, type BoardPost } from '@/api/board';
@@ -8,11 +8,16 @@ import { formatRelativeDate } from '@/utils/dateUtils';
 const BoardPage: React.FC = () => {
     const { category } = useParams<{ category: string }>();
     const location = useLocation();
+    const navigate = useNavigate();
     const { subMenuName, subMenuId } = useMenu();
     const [posts, setPosts] = useState<BoardPost[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     
     const isPhotoBoard = category === 'photo';
+
+    const handleWriteClick = () => {
+        navigate(`${location.pathname}/edit`);
+    };
 
     useEffect(() => {
         if (subMenuId) {
@@ -67,7 +72,10 @@ const BoardPage: React.FC = () => {
                 <div className="flex items-center gap-2">
                     <h2 className="text-xl font-bold text-gray-800">{subMenuName || '게시판'}</h2>
                 </div>
-                <button className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-1.5 px-4 rounded text-sm flex items-center gap-1.5 shadow-sm">
+                <button 
+                    onClick={handleWriteClick}
+                    className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-1.5 px-4 rounded text-sm flex items-center gap-1.5 shadow-sm"
+                >
                     📝 글쓰기
                 </button>
             </div>

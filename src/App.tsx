@@ -3,6 +3,7 @@ import Login from './pages/LoginPage.tsx';
 import DashboardPage from './pages/DashboardPage.tsx';
 import BoardPage from './pages/board/BoardPage.tsx';
 import BoardDetailPage from './pages/board/BoardDetailPage.tsx';
+import BoardEditPage from './pages/board/BoardEditPage.tsx';
 import './tailwind.css';
 import ApprovalPage from "@/pages/approval/ApprovalPage.tsx";
 import ApprovalSettingPage from "@/pages/approval/ApprovalSettingPage.tsx";
@@ -59,6 +60,7 @@ function App() {
             <Route path="/board">
                 <Route index element={<Navigate to="/board/notice" replace />} />
                 <Route path=":category" element={<BoardPage />} />
+                <Route path=":category/edit" element={<BoardEditPage />} />
                 <Route path=":category/:postId" element={<BoardDetailPage />} />
             </Route>
 
