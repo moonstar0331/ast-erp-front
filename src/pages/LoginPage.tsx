@@ -5,7 +5,7 @@ import { setCookie } from '@/utils/cookie';
 import { useMenuContext } from '@/context/MenuContext';
 
 type LoginForm = {
-  email: string;
+  loginId: string;
   password: string;
   remember: boolean;
 };
@@ -14,7 +14,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const { refreshMenu } = useMenuContext();
   const [form, setForm] = useState<LoginForm>({
-    email: '',
+    loginId: '',
     password: '',
     remember: true,
   });
@@ -23,12 +23,12 @@ export default function LoginPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.email.trim() || !form.password.trim()) return;
+    if (!form.loginId.trim() || !form.password.trim()) return;
 
     try {
       setLoading(true);
 
-      const res: LoginResponse = await login(form.email, form.password);
+      const res: LoginResponse = await login(form.loginId, form.password);
 
       // 쿠키에 저장
       const days = form.remember ? 7 : undefined; // 'Remember me' 체크 시 7일간 유지
@@ -74,14 +74,14 @@ export default function LoginPage() {
         <form onSubmit={onSubmit} className="pb-1">
           <label className="block">
             <span className="block text-sm font-medium text-gray-700 mb-2">
-              Email
+              ID
             </span>
             <input
-              value={form.email}
-              onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-              type="email"
+              value={form.loginId}
+              onChange={(e) => setForm((p) => ({ ...p, loginId: e.target.value }))}
+              // type="email"
               placeholder="you@example.com"
-              autoComplete="email"
+              // autoComplete="email"
               className="w-full h-11 rounded-xl bg-gray-50 border border-gray-300 text-gray-900 placeholder:text-gray-400 px-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             />
           </label>
@@ -136,7 +136,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            disabled={loading || !form.email.trim() || !form.password.trim()}
+            disabled={loading || !form.loginId.trim() || !form.password.trim()}
             className="mt-5 w-full h-11 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
             {loading ? 'Signing in...' : 'Sign in'}

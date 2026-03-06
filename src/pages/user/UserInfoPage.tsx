@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getUserInfo, type UserInfo } from '@/api/auth';
+import { getCookie } from '@/utils/cookie';
 
 const UserInfoPage: React.FC = () => {
+    const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            const userUuid = getCookie('userUuid');
+            if (userUuid) {
+                try {
+                    const data = await getUserInfo(userUuid);
+                    setUserInfo(data);
+                } catch (error) {
+                    console.error('Failed to fetch user info:', error);
+                }
+            }
+        };
+        fetchUserInfo();
+    }, []);
+
     const infoFields = [
-        { label: '사용자아이디', value: 'kimmoonsung' },
-        { label: '이름', value: '김문성' },
-        { label: '직급', value: '' },
-        { label: '부서', value: 'Digital Reality Labs-Engineering 파트' },
-        { label: '이메일', value: 'k.ms@astkorea.net' },
-        { label: '전화번호', value: '010-2046-4275' },
+        { label: '사용자아이디', value: userInfo?.loginId || '' },
+        { label: '이름', value: userInfo?.name || '' },
+        { label: '직급', value: userInfo?.positionName || '' },
+        { label: '부서', value: userInfo?.deptName || '' },
+        { label: '이메일', value: userInfo?.email || '' },
+        { label: '전화번호', value: userInfo?.phoneNumber || '' },
     ];
 
     const settings = [
@@ -29,7 +48,7 @@ const UserInfoPage: React.FC = () => {
         )},
         { label: 'Weather', type: 'text', value: 'City Code of openweathermap.org' },
         { label: 'RSS', type: 'text', value: 'Site@http://www.test.com/rss' },
-        { label: '알리미코드', type: 'text', value: 'kimmoonsung' },
+        { label: '알리미코드', type: 'text', value: userInfo?.email || '' },
         { label: '환율', type: 'custom', render: () => (
             <div className="flex gap-2">
                 <select className="border border-gray-300 rounded px-2 py-1 text-sm">

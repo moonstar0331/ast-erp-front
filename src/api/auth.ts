@@ -9,11 +9,11 @@ export interface LoginResponse {
 }
 
 //로그인
-export async function login(email: string, password: string): Promise<LoginResponse> {
+export async function login(loginId: string, password: string): Promise<LoginResponse> {
   const res = await apiClient.post(
     `${SERVICE_API.AUTH}/api/login`,
     {
-      email,
+      loginId,
       password,
     },
     {
@@ -30,10 +30,12 @@ export async function login(email: string, password: string): Promise<LoginRespo
 
 export interface UserInfo {
   userUuid: string;
+  loginId: string;
   email: string;
   name: string;
   deptName?: string;
   positionName?: string;
+  phoneNumber?: string;
 }
 
 // 사용자 정보 조회
