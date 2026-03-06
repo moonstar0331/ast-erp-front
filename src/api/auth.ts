@@ -35,7 +35,7 @@ export interface UserInfo {
   name: string;
   deptName?: string;
   positionName?: string;
-  phoneNumber?: string;
+  phone?: string;
 }
 
 // 사용자 정보 조회

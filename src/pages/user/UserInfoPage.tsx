@@ -26,7 +26,7 @@ const UserInfoPage: React.FC = () => {
         { label: '직급', value: userInfo?.positionName || '' },
         { label: '부서', value: userInfo?.deptName || '' },
         { label: '이메일', value: userInfo?.email || '' },
-        { label: '전화번호', value: userInfo?.phoneNumber || '' },
+        { label: '전화번호', value: userInfo?.phone || '' },
     ];
 
     const settings = [
